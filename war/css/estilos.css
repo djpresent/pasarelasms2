@@ -55,16 +55,14 @@ img.imgpestana {
     background-color: #4d4d4d;
 }
 
-.sidebar{
-	height: 100%;
-	
-}
-
 
 ul.nav.nav-sidebar {
     padding-top: 10%;
 }
 
+.sidebar {
+    padding-bottom: 1%;
+}
 
 
 img.icousuario {
