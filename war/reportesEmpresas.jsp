@@ -15,6 +15,7 @@
 	    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	  <script src="js/jquery.table2excel.js"></script>
 	  
 	  <script>
 	  
@@ -426,53 +427,113 @@
 				</form>
 				
 				
+			<!-- 
+			
+				INICIO DE LA TABLA DE REPORTES 
+				
+			-->
+		
 			<div class="table-responsive">
 
 				<%
 					if(!(session.getAttribute("transacciones") == null))
 					{
 						List <Transaccion> transacciones = (List <Transaccion>)session.getAttribute("transacciones");
+						
+					System.out.println(transacciones.size());
 						if (transacciones.size()>0)
 						{
-				%>
-						
-						<h4>Los resultados son:</h4>
-						<input type="button" onclick="CreateExcelSheet()" value="Exportar a Excel"></input>
-						<table class="table table-bordered table-condensed  table2excel" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
-						<tr>
-							<td style="width: 6%;">ID</td>
-							<td style="width: 8%;">Fecha</td>
-							<td style="width: 7%;">Hora</td>
-							<td style="width: 10%;">Código de retorno</td>
-							<td style="width: 9%;">Plataforma</td>
-							<td style="width: 10%;">Celular</td>
-							<td>Mensaje</td>
-							<td style="width: 10%;">Empresa</td>
-							<td style="width: 9%;">Usuario</td>
-							<td style="width: 8%;">Servicio</td>
-
-						</tr>
-					<% 
-						for (int i =0;i< transacciones.size();i++)
-						{
-							%>
-							<tr>
-								<td><%= transacciones.get(i).getId() %></td>
-								<td><%= transacciones.get(i).getFecha() %></td>
-								<td><%= transacciones.get(i).getHora() %></td>
-								<td> <%= transacciones.get(i).getCodRetorno() %></td>
-								<td></td>
-								<td><%= transacciones.get(i).getCelular() %></td>
-								<td><%= transacciones.get(i).getMensaje() %></td>
-								<td><%= transacciones.get(i).getNombreEmpresa() %></td>
-								<td><%= transacciones.get(i).getNombreUsuario() %></td>
-								<td><%= transacciones.get(i).getNombreServicio() %></td>
-							</tr>
+							if (Integer.parseInt(session.getAttribute("servicio").toString())==1)
+							{
+								%>
+										
+										<h4>Los resultados son:</h4>
+										<input type="button" onclick="CreateExcelSheet()" value="Exportar a Excel"></input>
+										<table class="table table-bordered table-condensed  table2excel" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
+										<tr>
+											<td style="width: 6%;">ID</td>
+											<td style="width: 8%;">Fecha</td>
+											<td style="width: 7%;">Hora</td>
+											<td style="width: 10%;">Código de retorno</td>
+											<td style="width: 9%;">Plataforma</td>
+											<td style="width: 10%;">Celular</td>
+											<td>Mensaje</td>
+											<td style="width: 10%;">Empresa</td>
+											<td style="width: 9%;">Usuario</td>
+											<td style="width: 8%;">Servicio</td>
+				
+										</tr>
+									<% 
+										for (int i =0;i< transacciones.size();i++)
+										{
+											%>
+											<tr>
+												<td><%= transacciones.get(i).getId() %></td>
+												<td><%= transacciones.get(i).getFecha() %></td>
+												<td><%= transacciones.get(i).getHora() %></td>
+												<td> <%= transacciones.get(i).getCodRetorno() %></td>
+												<td><%= transacciones.get(i).getPlataforma() %></td>
+												<td><%= transacciones.get(i).getCelular() %></td>
+												<td><%= transacciones.get(i).getMensaje() %></td>
+												<td><%= transacciones.get(i).getNombreEmpresa() %></td>
+												<td><%= transacciones.get(i).getNombreUsuario() %></td>
+												<td><%= transacciones.get(i).getNombreServicio() %></td>
+											</tr>
+											<% 
+										}
+										%>
+										 
+										 
+										</table>
+										<%
+							}
+							else if (Integer.parseInt(session.getAttribute("servicio").toString())==3)
+							{
+							
+								%>
+								
+								<h4>Los resultados son:</h4>
+								<input type="button" onclick="CreateExcelSheet()" value="Exportar a Excel"></input>
+								<table class="table table-bordered table-condensed  table2excel" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
+								<tr>
+									<td style="width: 6%;">ID</td>
+									<td style="width: 8%;">Fecha</td>
+									<td style="width: 7%;">Hora</td>
+									<td style="width: 10%;">Código de retorno</td>
+									<td style="width: 9%;">ID Interno</td>
+									<td style="width: 10%;">Celular</td>
+									<td>Mensaje</td>
+									<td style="width: 10%;">Empresa</td>
+									<td style="width: 9%;">Usuario</td>
+									<td style="width: 8%;">Servicio</td>
+		
+								</tr>
 							<% 
-						}
-						%>
-						</table>
-						<%
+								for (int i =0;i< transacciones.size();i++)
+								{
+									%>
+									<tr>
+										<td><%= transacciones.get(i).getId() %></td>
+										<td><%= transacciones.get(i).getFecha() %></td>
+										<td><%= transacciones.get(i).getHora() %></td>
+										<td> <%= transacciones.get(i).getCodRetorno() %></td>
+										<td><%= transacciones.get(i).getPlataforma() %></td>
+										<td><%= transacciones.get(i).getCelular() %></td>
+										<td><%= transacciones.get(i).getMensaje() %></td>
+										<td><%= transacciones.get(i).getNombreEmpresa() %></td>
+										<td><%= transacciones.get(i).getNombreUsuario() %></td>
+										<td><%= transacciones.get(i).getNombreServicio() %></td>
+									</tr>
+									<% 
+								}
+								%>
+								 
+								 
+								</table>
+								<%
+								
+							}
+						
 						}
 						else
 						{
@@ -490,6 +551,12 @@
 				%>
 				
 			</div>
+			
+			<!-- 
+			
+				FIN DE LA TABLA DE REPORTES 
+				
+			-->	
 			
 			
 			</div>	

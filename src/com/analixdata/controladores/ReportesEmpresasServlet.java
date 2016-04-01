@@ -66,10 +66,10 @@ public class ReportesEmpresasServlet extends HttpServlet
 			Connection conn = DriverManager.getConnection(url);
 			try 
 			{
-				String usu=req.getParameter("usuario");
+				String usu=req.getParameter("reporteUsuario");
 				 String ser=req.getParameter("reporteServicio");
 		    	String inputContinuarReportes=req.getParameter("btnContinuarReportes");
-		    	String inputContinuarUsuarios=req.getParameter("btnContinuarUsuarios");
+		    	//String inputContinuarUsuarios=req.getParameter("btnContinuarUsuarios");
 		    	String inputConsultar = req.getParameter("btnConsultar");
 		    	String fechaDesde = req.getParameter("fechaDesde");
 		    	String fechaHasta = req.getParameter("fechaHasta");
@@ -96,13 +96,15 @@ public class ReportesEmpresasServlet extends HttpServlet
 	 
 		        	}
 		    		
-		    		
+			        Transaccion tran ;
+		    		List <Transaccion> transacciones = null;
 		    		
 		    		session.setAttribute("servicio", ser);
-		    		session.setAttribute("usu", usu);
+		    		session.setAttribute("usu", "nousuario");
 				    session.setAttribute("fDesde", fechaDesde);
 				    session.setAttribute("fHasta", fechaHasta);
 				    session.setAttribute("listaUsuarios", listaUsuarios);
+				    session.setAttribute("transacciones", transacciones);
 				    resp.sendRedirect("reportesEmpresas.jsp");
 				    
 		    	}
@@ -114,33 +116,35 @@ public class ReportesEmpresasServlet extends HttpServlet
 			    	  
 		    		 u = (Usuario)session.getAttribute("usuario");
 		    		 System.out.println(usu);
-			    	if (usu.equals("nousuario"))
+		    		 System.out.println(ser);
+			    	if (Integer.parseInt(ser)==1)
 			    	{
-			    		ResultSet rs = conn.createStatement().executeQuery("SELECT idtransaccion,fecha,hora,retorno,plataforma,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa FROM  pasarelasms.transaccion, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=transaccion.idservicio AND usuario.idusuario= transaccion.idusuario and empresa.idempresa = transaccion.idempresa and empresa.idempresa="+u.getEmpresa().getIdEmpresa()+"  AND  fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtransaccion desc; ");
-			    		
-			    		while(rs.next())
-				    	{
-				        tran = new Transaccion(rs.getInt("idTransaccion"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
-				        transacciones.add(tran);
-				    	}
-			    	}
-			   		else
-			    	{
-  
-		    			/*ResultSet rs = conn.createStatement().executeQuery("SELECT idtransaccion,fecha,hora,retorno,plataforma,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa FROM  pasarelasms.transaccion, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=transaccion.idservicio AND usuario.idusuario= transaccion.idusuario and empresa.idempresa = transaccion.idempresa and empresa.idempresa="+u.getEmpresa().getIdEmpresa()+"  AND usuario.idusuario="+usu+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtransaccion desc; ");
+			    		ResultSet rs = conn.createStatement().executeQuery("SELECT idtransaccion,fecha,hora,retorno,plataforma,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa FROM  pasarelasms.transaccion, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=transaccion.idservicio AND usuario.idusuario= transaccion.idusuario and empresa.idempresa = transaccion.idempresa and empresa.idempresa="+u.getEmpresa().getIdEmpresa()+"  AND usuario.idusuario="+usu+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtransaccion desc; ");
 			    		
 		    			while(rs.next())
 				    	{
-		    				System.out.println("Entró bucle ");
+		    				//System.out.println("Entró bucle ");
 				        	tran = new Transaccion(rs.getInt("idTransaccion"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
 				        	transacciones.add(tran);
-				    	 }*/
+				    	 }
+			    	}
+			   		else if (Integer.parseInt(ser)==3)
+			    	{
+			   			ResultSet rs = conn.createStatement().executeQuery("SELECT idtwhatsapp,idinterno,fecha,hora,retorno,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa FROM  pasarelasms.twhatsapp, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=twhatsapp.idservicio AND usuario.idusuario= twhatsapp.idusuario and empresa.idempresa = twhatsapp.idempresa AND empresa.idempresa= '"+u.getEmpresa().getIdEmpresa()+"'  AND usuario.idusuario="+usu+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtwhatsapp desc; ");
+	    				
+			   			while(rs.next())
+				    	  {
+			    			
+				        		tran = new Transaccion(rs.getInt("idtwhatsapp"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("idinterno"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
+				        		transacciones.add(tran);
+				    	  }
+		    			
 		    		}
 
 		    		session.setAttribute("usu", usu);
 				    session.setAttribute("fDesde", fechaDesde);
 				    session.setAttribute("fHasta", fechaHasta);
-				   // session.setAttribute("transacciones", transacciones);
+				    session.setAttribute("transacciones", transacciones);
 				    resp.sendRedirect("reportesEmpresas.jsp");
 		    	}
 

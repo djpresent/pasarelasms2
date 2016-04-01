@@ -113,6 +113,7 @@ public class EnvioMensajesServlet extends HttpServlet {
 						   for (int i=0;i<sheet.getPhysicalNumberOfRows();i++)
 						   {
 							   XSSFRow row = sheet.getRow(i);
+							   if(row!=null){
 							   String mtemp = mensaje;
 							   if (!row.getCell(0).toString().equalsIgnoreCase(""))
 							   {
@@ -137,6 +138,7 @@ public class EnvioMensajesServlet extends HttpServlet {
 								  break; 
 							   }
 						   	}
+						   }
 						   
 					   }
 					   else
