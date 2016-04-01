@@ -78,7 +78,7 @@
 									<li><a href="whatsapp.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Whatsapp</h5></a></li>
 								<li><a href="reportes.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reporte SMS</h5></a></li>
 								<li><a href="reporteCargas.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reporte Cargas </h5></a></li>
-								<li><a href="comunidades.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Meteordesk </h5></a></li>
+								<li><a href="comunidades.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Comunidades </h5></a></li>
 								
 								<%}
 							
