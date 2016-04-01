@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+    <session-config>
+	    <session-timeout>30</session-timeout>
+	</session-config>
+    <servlet>
+        <servlet-name>empresas</servlet-name>
+        <servlet-class>com.analixdata.controladores.EmpresasServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>empresas</servlet-name>
+        <url-pattern>/empresas</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>empresa</servlet-name>
+        <servlet-class>com.analixdata.controladores.EmpresaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>empresa</servlet-name>
+        <url-pattern>/empresa</url-pattern>
+    </servlet-mapping>
+ 
+    <servlet>
+        <servlet-name>validar</servlet-name>
+        <servlet-class>com.analixdata.controladores.ValidarServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>validar</servlet-name>
+        <url-pattern>/validar</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>servicio</servlet-name>
+        <servlet-class>com.analixdata.controladores.ServicioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>servicio</servlet-name>
+        <url-pattern>/servicio</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>usuario</servlet-name>
+        <servlet-class>com.analixdata.controladores.UsuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>usuario</servlet-name>
+        <url-pattern>/usuario</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>asignarServicio</servlet-name>
+        <servlet-class>com.analixdata.controladores.ServicioEmpresaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>asignarServicio</servlet-name>
+        <url-pattern>/asignarServicio</url-pattern>
+    </servlet-mapping>
+    
+        <servlet>
+        <servlet-name>asignarServicioUsuario</servlet-name>
+        <servlet-class>com.analixdata.controladores.ServicioUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>asignarServicioUsuario</servlet-name>
+        <url-pattern>/asignarServicioUsuario</url-pattern>
+    </servlet-mapping>
+    
+    
+           <servlet>
+        <servlet-name>asignarServicioUEmpresa</servlet-name>
+        <servlet-class>com.analixdata.controladores.ServicioUEmpresaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>asignarServicioUEmpresa</servlet-name>
+        <url-pattern>/asignarServicioUEmpresa</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>cerrarSesion</servlet-name>
+        <servlet-class>com.analixdata.controladores.CerrarSesionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cerrarSesion</servlet-name>
+        <url-pattern>/cerrarSesion</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    <servlet>
+        <servlet-name>enviarSMS</servlet-name>
+        <servlet-class>com.analixdata.controladores.EnvioMensajesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>enviarSMS</servlet-name>
+        <url-pattern>/enviarSMS</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>EnvioSms</servlet-name>
+        <servlet-class>com.analixdata.controladores.SMSServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EnvioSms</servlet-name>
+        <url-pattern>/EnvioSms</url-pattern>
+    </servlet-mapping>
+    
+        <servlet>
+        <servlet-name>reporteTransacciones</servlet-name>
+        <servlet-class>com.analixdata.controladores.ReportesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>reporteTransacciones</servlet-name>
+        <url-pattern>/reporteTransacciones</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>reporteEmpresasTransacciones</servlet-name>
+        <servlet-class>com.analixdata.controladores.ReportesEmpresasServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>reporteEmpresasTransacciones</servlet-name>
+        <url-pattern>/reporteEmpresasTransacciones</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>reporteUsuariosTransacciones</servlet-name>
+        <servlet-class>com.analixdata.controladores.ReportesUsuariosServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>reporteUsuariosTransacciones</servlet-name>
+        <url-pattern>/reporteUsuariosTransacciones</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>actContrasena</servlet-name>
+        <servlet-class>com.analixdata.controladores.ActualizarContrasena</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>actContrasena</servlet-name>
+        <url-pattern>/actContrasena</url-pattern>
+    </servlet-mapping>
+    
+         <servlet>
+        <servlet-name>APIAnalix</servlet-name>
+        <servlet-class>com.analixdata.controladores.APIAnalix</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>APIAnalix</servlet-name>
+        <url-pattern>/APIAnalix</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>olvidar</servlet-name>
+        <servlet-class>com.analixdata.controladores.OlvidePasswordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>olvidar</servlet-name>
+        <url-pattern>/olvidar</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>restablecer</servlet-name>
+        <servlet-class>com.analixdata.controladores.restablecer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>restablecer</servlet-name>
+        <url-pattern>/restablecer</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>recuperarPassword</servlet-name>
+        <servlet-class>com.analixdata.controladores.RestablecerPasswordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>recuperarPassword</servlet-name>
+        <url-pattern>/recuperarPassword</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>cargarServicio</servlet-name>
+        <servlet-class>com.analixdata.controladores.CargaSEmpresaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cargarServicio</servlet-name>
+        <url-pattern>/cargarServicio</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>reporteCargas</servlet-name>
+        <servlet-class>com.analixdata.controladores.ReporteCargas</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>reporteCargas</servlet-name>
+        <url-pattern>/reporteCargas</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Meteordesk</servlet-name>
+        <servlet-class>com.analixdata.controladores.Meteordesk</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Meteordesk</servlet-name>
+        <url-pattern>/Meteordesk</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>whatsapp</servlet-name>
+        <servlet-class>com.analixdata.controladores.EnvioWhatsappServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>whatsapp</servlet-name>
+        <url-pattern>/whatsapp</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>subir</servlet-name>
+        <servlet-class>com.analixdata.controladores.SubirServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>subir</servlet-name>
+        <url-pattern>/subir</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    <servlet>
+        <servlet-name>autorizar</servlet-name>
+        <servlet-class>com.analixdata.controladores.AutorizacionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>autorizar</servlet-name>
+        <url-pattern>/autorizar</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+    
+    
+</web-app>

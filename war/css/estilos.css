@@ -1,0 +1,532 @@
+
+img.logologin {
+    margin-top: 15%;
+    margin-left: -15px;
+}
+
+.btnlogin{
+	
+    margin-top: 4%;
+
+}
+
+.icomenu{
+	
+	padding-right:10px;
+}
+
+.col-sm-9.col-md-9.main.contenido {
+    margin-left: 25px!important;
+}
+
+.navbar{
+	
+	margin-bottom: 0px;
+	background-image: url("/imagenes/fondoBarra.png");
+}
+
+ul.menuCuenta.nav.nav-sidebar {
+    padding-top: 0px!important;
+}
+
+
+.msgbienvenida {
+    padding-right: 45px;
+    margin-top: 8.5%;
+    color: white;
+}
+
+.icoheader {
+    padding: 5px!important;
+}
+
+
+.imglogout {
+    margin-left: -13%;
+    margin-top: 19%;
+}
+
+
+img.imgpestana {
+    margin-left: 22px;
+}
+
+.col-sm-3.col-md-2.sidebar {
+    background-color: #4d4d4d;
+}
+
+.sidebar{
+	height: 100%;
+	
+}
+
+
+ul.nav.nav-sidebar {
+    padding-top: 10%;
+}
+
+
+
+img.icousuario {
+    margin-left: 15px;
+}
+
+
+img.logo {
+    margin-top: 2em;
+    margin-bottom: 1.4em;
+}
+
+
+.oculto
+{
+	display: none;
+}
+
+a {
+    color: #fff;
+}
+
+
+
+.footderecha{
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: right;
+    margin-right: -50px;
+    color:white;
+
+}
+
+.footizquierda {
+    float: left;
+    margin-top: 14px;
+    padding-left:50px;
+	 color:white;
+}
+
+.footer{
+	background-color: #c94f24;
+}
+
+
+.col-sm-9.col-md-9.main {
+    padding-left: 25px;
+}
+
+
+.btnCambiarC {
+    margin-top: 25px;
+}
+
+form#formActDatos {
+    margin-top: 25px;
+}
+
+.btnCancelar {
+    margin-left: 25px;
+}
+
+.alert{
+	
+	margin-top:5px;
+}
+
+form#formEmpresa {
+    margin-top: 25px;
+}
+
+/* Vertical Offset Bottom */
+.vert-offset-top-12{
+    margin-top: 12em;
+}
+.vert-offset-top-11{
+    margin-top: 11em;
+}
+.vert-offset-top-10{
+    margin-top: 10em;
+}
+.vert-offset-top-9{
+    margin-top: 9em;
+}
+.vert-offset-top-8{
+    margin-top: 8em;
+}
+.vert-offset-top-7 {
+    margin-top: 7em;
+}
+.vert-offset-top-6{
+    margin-top: 6em;
+}
+.vert-offset-top-5{
+    margin-top: 5em;
+}
+.vert-offset-top-4{
+    margin-top: 4em;
+}
+.vert-offset-top-3{
+    margin-top: 3em;   
+}
+.vert-offset-top-2{
+    margin-top: 2em;
+}
+.vert-offset-top-1-8{
+    margin-top: 1.8em;
+}
+.vert-offset-top-1{
+    margin-top: 1em;
+}
+.vert-offset-top-0{
+    margin-top: 0em;
+}
+/* Vertical Offset Bottom */
+.vert-offset-bottom-12{
+    margin-bottom: 12em;
+}
+.vert-offset-bottom-11{
+    margin-bottom: 11em;
+}
+.vert-offset-bottom-10{
+    margin-bottom: 10em;
+}
+.vert-offset-bottom-9{
+    margin-bottom: 9em;
+}
+.vert-offset-bottom-8{
+    margin-bottom: 8em;
+}
+.vert-offset-bottom-7{
+    margin-bottom: 7em;
+}
+.vert-offset-bottom-6{
+    margin-bottom: 6em;
+}
+.vert-offset-bottom-5{
+    margin-bottom: 5em;
+}
+.vert-offset-bottom-4{
+    margin-bottom: 4em;
+}
+.vert-offset-bottom-3{
+    margin-bottom: 3em;
+}
+.vert-offset-bottom-2{
+    margin-bottom: 2em;
+}
+.vert-offset-bottom-1{
+    margin-bottom: 1em;
+}
+.vert-offset-bottom-0{
+    margin-bottom: 0em;
+}
+
+
+
+table.tableSection {
+        display: table;
+        width: 100%;
+    }
+    table.tableSection thead, table.tableSection tbody {
+        float: left;
+        width: 100%;
+    }
+    table.tableSection tbody {
+        overflow: auto;
+        height: 150px;
+    }
+    table.tableSection tr {
+        width: 100%;
+        display: table;
+        text-align: left;
+    }
+    table.tableSection th, table.tableSection td {
+        width: 33%;
+    }
+    
+    .btn-circle {
+    
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+
+.panel{
+    margin-bottom: 0px;
+}
+.chat-window{
+    bottom:0;
+    
+    margin-left:10px;
+}
+.chat-window > div > .panel{
+    border-radius: 5px 5px 0 0;
+}
+.icon_minim{
+    padding:2px 10px;
+}
+.msg_container_base{
+  background: #e5e5e5;
+  margin: 0;
+  padding: 0 10px 10px;
+  max-height:400px;
+  overflow-x:hidden;
+}
+.lista{
+  background: #e5e5e5;
+  margin: 0;
+  padding: 0 ;
+  max-height:400px;
+  overflow-x:hidden;
+}
+.top-bar {
+  background: #666;
+  color: white;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.msg_receive{
+    padding-left:0;
+    margin-left:0;
+}
+.msg_sent{
+    padding-bottom:20px !important;
+    margin-right:0;
+}
+.messages {
+  background: white;
+  padding: 10px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  max-width:100%;
+}
+.messages > p {
+    font-size: 13px;
+    margin: 0 0 0.2rem 0;
+  }
+.messages > time {
+    font-size: 11px;
+    color: #ccc;
+}
+.msg_container {
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+}
+
+.avatar {
+    position: relative;
+    padding: 0;
+    width: 8% !important;
+}
+.base_receive > .avatar:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid #FFF;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.base_sent {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.base_sent > .avatar:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid white;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close
+}
+
+.msg_sent > time{
+    float: right;
+}
+
+
+
+.msg_container_base::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+.msg_container_base::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+.msg_container_base::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+.btn-group.dropup{
+    position:fixed;
+    left:0px;
+    bottom:0;
+}
+
+.imgPersona{
+    border: 1px solid #7b7b7b;
+    border-radius: 50%;
+    width: 44px;
+    margin-right: 4%;
+}
+
+.redondeado {
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid #E84E1B;
+    border-radius: 50%;
+    font-size: 14px;
+    height: 30px;
+    width: 30px;
+    color: #E84E1B;
+    margin-left: 15px;
+
+}
+
+.moverSpan
+{
+	top: 0px !important;	
+}
+
+
+
+/*	--------------------------------------------------
+	:: Table Filter
+	-------------------------------------------------- */
+.panel {
+	border: 1px solid #ddd;
+	background-color: #fcfcfc;
+}
+.panel .btn-group {
+	margin: 15px 0 30px;
+}
+.panel .btn-group .btn {
+	transition: background-color .3s ease;
+}
+.table-filter {
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+}
+.table-filter tbody tr:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+.table-filter tbody tr td {
+	padding: 10px;
+	vertical-align: middle;
+	border-top-color: #eee;
+}
+.table-filter tbody tr.selected td {
+	background-color: #eee;
+}
+.table-filter tr td:first-child {
+	width: 38px;
+}
+.table-filter tr td:nth-child(2) {
+	width: 35px;
+}
+.ckbox {
+	position: relative;
+}
+.ckbox input[type="checkbox"] {
+	opacity: 0;
+}
+.ckbox label {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.ckbox label:before {
+	content: '';
+	top: 1px;
+	left: 0;
+	width: 18px;
+	height: 18px;
+	display: block;
+	position: absolute;
+	border-radius: 2px;
+	border: 1px solid #bbb;
+	background-color: #fff;
+}
+.ckbox input[type="checkbox"]:checked + label:before {
+	border-color: #2BBCDE;
+	background-color: #2BBCDE;
+}
+.ckbox input[type="checkbox"]:checked + label:after {
+	top: 3px;
+	left: 3.5px;
+	content: '\e013';
+	color: #fff;
+	font-size: 11px;
+	font-family: 'Glyphicons Halflings';
+	position: absolute;
+}
+.table-filter .star {
+	color: #ccc;
+	text-align: center;
+	display: block;
+}
+.table-filter .star.star-checked {
+	color: #F0AD4E;
+}
+.table-filter .star:hover {
+	color: #ccc;
+}
+.table-filter .star.star-checked:hover {
+	color: #F0AD4E;
+}
+.table-filter .media-photo {
+	width: 35px;
+}
+.table-filter .media-body {
+    display: block;
+    /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+}
+.table-filter .media-meta {
+	font-size: 11px;
+	color: #999;
+}
+.table-filter .media .title {
+	color: #2BBCDE;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: normal;
+	margin: 0;
+}
+.table-filter .media .title span {
+	font-size: .8em;
+	margin-right: 20px;
+}
+.table-filter .media .title span.pagado {
+	color: #5cb85c;
+}
+.table-filter .media .title span.pendiente {
+	color: #f0ad4e;
+}
+.table-filter .media .title span.cancelado {
+	color: #d9534f;
+}
+.table-filter .media .summary {
+	font-size: 14px;
+}
