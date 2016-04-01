@@ -66,6 +66,8 @@ public class EnvioWhatsappServlet extends HttpServlet {
 		List <Transaccion> mensajes = new ArrayList<Transaccion>();
 		String url = null;
 		String mensaje = null;
+		int tipoMensaje =0;
+		String link="";
 		//conexion a la 
 		
 		try {
@@ -83,7 +85,7 @@ public class EnvioWhatsappServlet extends HttpServlet {
   	    } catch (Exception e) 
 		{
   	    	session.setAttribute("codigo", 1);
-			resp.sendRedirect("mensajeria.jsp");
+			resp.sendRedirect("whatsapp.jsp");
   	    }
 
 		
@@ -92,6 +94,7 @@ public class EnvioWhatsappServlet extends HttpServlet {
 
 		try {
 		
+			try{
 			FileItemIterator iterator = upload.getItemIterator(req);
 			
 			FileItemStream uploadedFile = null;
@@ -109,37 +112,50 @@ public class EnvioWhatsappServlet extends HttpServlet {
 					   if (uploadedFile.getContentType().equalsIgnoreCase("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
 					   {					   
 						   XSSFWorkbook workBook = new XSSFWorkbook(uploadedFile.openStream());
-						   XSSFSheet sheet = workBook.getSheetAt(0); 
+						   XSSFSheet sheet = workBook.getSheetAt(0);     
 						   
 						   System.out.println("El numero de filas es: "+sheet.getPhysicalNumberOfRows());
 						   for (int i=0;i<sheet.getPhysicalNumberOfRows();i++)
 						   {
 							   XSSFRow row = sheet.getRow(i);
+							   if(row!=null){
 							   String mtemp = mensaje;
-							   if (!row.getCell(0).toString().equalsIgnoreCase(""))
-							   {
-								   System.out.println("El valor del numero es: "+row.getCell(0).toString());
-								   if (row.getCell(1)!=null)  
-									   mtemp = mtemp.replace("[VARIABLE1]", row.getCell(1).toString());
+							   if(row.getCell(0)!=null){
+								
 								   
-								   if (row.getCell(2)!=null)  
-									   mtemp = mtemp.replace("[VARIABLE2]", row.getCell(2).toString());
-								   
-								   if (row.getCell(3)!=null)  
-									   mtemp = mtemp.replace("[VARIABLE3]", row.getCell(3).toString());
-								   
-								   if (row.getCell(4)!=null)  
-									   mtemp = mtemp.replace("[VARIABLE4]", row.getCell(4).toString());
-	
-								   Transaccion mens = new Transaccion (row.getCell(0).toString(),mtemp);
-								   mensajes.add(mens);
-							   }
-							   else
-							   {
-								  break; 
+								   if (!row.getCell(0).toString().equalsIgnoreCase(""))
+								   {
+									   System.out.println("El valor del numero es: "+row.getCell(0).toString());
+									   if (row.getCell(1)!=null)  
+										   mtemp = mtemp.replace("[VARIABLE1]", row.getCell(1).toString());
+									   
+									   if (row.getCell(2)!=null)  
+										   mtemp = mtemp.replace("[VARIABLE2]", row.getCell(2).toString());
+									   
+									   if (row.getCell(3)!=null)  
+										   mtemp = mtemp.replace("[VARIABLE3]", row.getCell(3).toString());
+									   
+									   if (row.getCell(4)!=null)  
+										   mtemp = mtemp.replace("[VARIABLE4]", row.getCell(4).toString());
+									   
+									   if(mtemp.length()>200){
+										   session.setAttribute("codigo", 8);
+										   resp.sendRedirect("whatsapp.jsp");
+									   }
+		
+									   Transaccion mens = new Transaccion (row.getCell(0).toString(),mtemp);
+									   
+									   
+									   mensajes.add(mens);
+									   
+								   }
+								   else
+								   {
+									  break; 
+								   }
 							   }
 						   	}
-						   
+						   }
 					   }
 					   else
 					   {
@@ -194,7 +210,13 @@ public class EnvioWhatsappServlet extends HttpServlet {
 									    	}
 									    	i++;
 									    }
-
+									    
+									    if(mtemp.length()>200){
+											   session.setAttribute("codigo", 8);
+											   resp.sendRedirect("whatsapp.jsp");
+										   }
+			 
+									    
 									   Transaccion mens = new Transaccion (numero,mtemp);
 									   mensajes.add(mens);
 								    }
@@ -204,7 +226,7 @@ public class EnvioWhatsappServlet extends HttpServlet {
 
 							} catch (IOException e) {
 								session.setAttribute("codigo", 2);
-								resp.sendRedirect("mensajeria.jsp");
+								resp.sendRedirect("whatsapp.jsp");
 							} finally {
 								if (br != null) {
 									try {
@@ -225,13 +247,41 @@ public class EnvioWhatsappServlet extends HttpServlet {
 						   mensaje = IOUtils.toString(uploaded.openStream(), "utf-8"); 
 
 					   }
+					   if (uploaded.getFieldName().equals("tipoMensaje"))
+					   {
+						  
+						   tipoMensaje = Integer.parseInt(IOUtils.toString(uploaded.openStream(), "utf-8")); 
+
+					   }
+					   if (uploaded.getFieldName().equals("url"))
+					   {
+						  
+						   link = IOUtils.toString(uploaded.openStream(), "utf-8"); 
+
+					   }
+
+
 
 				   }
 	            
 	            
 	        }
-
+			} catch (FileUploadException e) {
+				
+				session.setAttribute("codigo", 6);
+				resp.sendRedirect("whatsapp.jsp");
+				
+				///e.printStackTrace();
+			} 
+			} catch (Exception e) {
+				session.setAttribute("codigo", 2);
+				resp.sendRedirect("whatsapp.jsp");
 			
+			}
+			System.out.println("paso while");
+			
+			
+			try{
 			if (Integer.parseInt(disp)>=mensajes.size())
 			{	
 				
@@ -245,6 +295,8 @@ public class EnvioWhatsappServlet extends HttpServlet {
 				String bloque="";
 				//String destinatarios="\"Destinatarios\": [\"";
 				//String mensajesp= "\"Mensajes\": [\"";
+				
+				
 				
 				String respuesta="";
 				int contador=0;
@@ -262,7 +314,15 @@ public class EnvioWhatsappServlet extends HttpServlet {
 			    		     String fecha= new SimpleDateFormat("yyyyMMdd").format(cal.getTime()).toString();
 			    		     String hora=new SimpleDateFormat("HHmmss").format(cal.getTime()).toString();
 			    		      idsms = fecha+hora+i;
-					         bloque+=idsms+","+cel+","+mensajes.get(i).getMensaje()+"\r\n";
+			  
+			    		    	  if(tipoMensaje==1){
+			    		    		  bloque+=idsms+","+cel+","+mensajes.get(i).getMensaje()+"\r\n";
+			    		    	  }else{
+			    		    		
+			    		    		  
+			    		    		  bloque+=idsms+","+cel+","+link+" "+mensajes.get(i).getMensaje()+"\r\n";
+			    		    	  }
+					         
 					        // System.out.println(cal.toString());
 					        respuesta="PROCESADO";
 					         enviados++;
@@ -293,23 +353,35 @@ public class EnvioWhatsappServlet extends HttpServlet {
 		    		          stmt.setString(3, respuesta);
 		    		          stmt.setString(4, idsms);
 		    		          stmt.setString(5, mensajes.get(i).getCelular());
-		    		          stmt.setString(6, mensajes.get(i).getMensaje());
+		    		          
+		    		          if(tipoMensaje==1){
+		    		        	  stmt.setString(6, mensajes.get(i).getMensaje());
+		    		    	  }else{
+		    		    		
+		    		    		  
+		    		    		  stmt.setString(6, link+" "+mensajes.get(i).getMensaje());
+		    		    	  }
+		    		          
+		    		        
 		    		          stmt.setInt(7, 3);
 		    		          stmt.setInt(8, u.getId() );
 		    		          stmt.setInt(9, u.getEmpresa().getIdEmpresa());
 		    		          
 		    		          stmt.executeUpdate();
 		    		          System.out.println(statement);
-		        		}catch (Error e){
+		        		}catch (Error err){
 		        			session.setAttribute("codigo", "ERRORGRABARBASE");
-		    				resp.sendRedirect("mensajeria.jsp");
+		    				resp.sendRedirect("whatsapp.jsp");
 		        		}
 						
 					}
 					//System.out.println(contador);
 					if (contador==mensajes.size() || contador==1000)
 					{
-							int tipoMensaje = Integer.parseInt(req.getParameter("tipoMensaje"));
+						
+							
+							
+							
 
 							String mensajeCod = URLEncoder.encode(bloque, "utf-8");
 							System.out.println(cadena+mensajeCod);
@@ -319,8 +391,7 @@ public class EnvioWhatsappServlet extends HttpServlet {
 			        		con.setReadTimeout(60 * 5000);
 			                con.setConnectTimeout(60 * 5000);
 			                
-			                //con.setRequestProperty ("Authorization", "Basic REM1NjIzMTVCM0NCOUVGOjA2MzZFM0FGMTQ=");
-			        		con.setRequestMethod("POST");
+			             	con.setRequestMethod("POST");
 			        		con.setRequestProperty("content-type", "application/x-www-form-urlencoded");
 			                con.setRequestProperty("accept", "application/text");
 
@@ -335,7 +406,7 @@ public class EnvioWhatsappServlet extends HttpServlet {
 			        		
 			        		int responseCode = con.getResponseCode();
 			        		
-			        		
+			        		System.out.println(responseCode);
 			        		
 			        		if(responseCode==200)
 			        		{
@@ -353,9 +424,11 @@ public class EnvioWhatsappServlet extends HttpServlet {
 			        			
 			        		}
 			        		
+							
+			        		
 			        		con.disconnect();
 			        		
-						
+							
 						
 			        	String stmt1 = "UPDATE servicio_empresa SET disponible="+(env-enviados)+" WHERE idempresa="+u.getEmpresa().getIdEmpresa()+" AND idservicio=3";
 							PreparedStatement stmt = conn.prepareStatement(stmt1);
@@ -379,17 +452,8 @@ public class EnvioWhatsappServlet extends HttpServlet {
 					resp.sendRedirect("whatsapp.jsp");
 			}
 			
-			
-			
-		
-		} catch (FileUploadException e) {
-			
-			session.setAttribute("codigo", 6);
-			resp.sendRedirect("whatsapp.jsp");
-			
-			///e.printStackTrace();
-		} catch (Exception e) {
-
+			}catch (Exception e) {
+			System.out.println(e);
 			session.setAttribute("codigo", 7);
 			resp.sendRedirect("whatsapp.jsp");
 		
@@ -413,7 +477,7 @@ public class EnvioWhatsappServlet extends HttpServlet {
 	    }
 	
 		
-	//	resp.sendRedirect("mensajeria.jsp");
+
 
 	}
 	@Override

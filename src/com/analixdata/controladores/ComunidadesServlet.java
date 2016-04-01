@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import com.analixdata.modelos.DAO;
 import com.analixdata.modelos.Usuario;
 
-public class Meteordesk extends HttpServlet{
+public class ComunidadesServlet extends HttpServlet{
 
 	protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException
 	{
@@ -58,7 +58,7 @@ public class Meteordesk extends HttpServlet{
 				response.append(inputLine);
 			}
 			
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/meteordesk.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/comunidades.jsp");
 	            PrintWriter out= resp.getWriter();
 	            out.println("<div class=\"alert alert-success\" style=\"text-align: center;\"><strong>Ok ! </strong>Bienvenido "+response+"</div> ");
   	          try 
@@ -81,7 +81,7 @@ public class Meteordesk extends HttpServlet{
 			}
 			
 			
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/meteordesk.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/comunidades.jsp");
             PrintWriter out= resp.getWriter();
             out.println("<div class=\"alert alert-success\" style=\"text-align: center;\"><strong>Ok ! </strong>Falló"+response+"</div> ");
 	          try 

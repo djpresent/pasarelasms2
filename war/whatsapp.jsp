@@ -8,15 +8,33 @@
   
   	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
   	<link rel="stylesheet" type="text/css" href="css/estilos.css">
+  	
+  	 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
    
 
 	<script type=text/javascript>
 	
 	var csv;
+	
+  	var num_caracteres_permitidos=200;
+  	var contenido_textarea="";
+	
 		function cuenta()
 		{
 			var car = "Caracteres: ";
-			document.getElementById("caracteres").value=car.concat(160-document.getElementById("idTexto").value.length);
+			
+			 num_caracteres = document.getElementById("idTexto").value.length;
+
+			   if (num_caracteres > num_caracteres_permitidos){ 
+				   document.getElementById("idTexto").value = contenido_textarea;
+			   }else{ 
+			      contenido_textarea = document.getElementById("idTexto").value;	
+			      document.getElementById("caracteres").value=car.concat(num_caracteres_permitidos-document.getElementById("idTexto").value.length);
+					
+			   } 
+	
 			
 		}
 		
@@ -131,26 +149,33 @@
 	    function elegirTipoMensaje(){
 	    	var tipoM=document.getElementById("tipoMensaje").value;
 	    	if(tipoM == 1){
-	    		document.getElementById("textoTipo").style.display='none';
-	    		document.getElementById("inputTipoMensaje").style.display='none';
+	    		document.getElementById("iframeSubir").style.display='none';
+	    	
 	    	}
 	    	
-	    	if(tipoM == 2){
-	    		document.getElementById("textoTipo").style.display='block';
-	    		document.getElementById("inputTipoMensaje").style.display='block';
-	    		document.getElementById("textoMedia").innerHTML="Imagen";
-	    		document.getElementById("formatoMedia").innerHTML="(.jpg máx:2MB)";
+	    	if(tipoM == 2 ){
+	    		num_caracteres_permitidos=145;
+	    		document.getElementById("caracteres").value=num_caracteres_permitidos;
+	    		document.getElementById("iframeSubir").style.display='block';
+	    		
 	    	}
 	    	
-	    	if(tipoM == 3){
-	    		document.getElementById("textoTipo").style.display='block';
-	    		document.getElementById("inputTipoMensaje").style.display='block';
-	    		document.getElementById("textoMedia").innerHTML="Video";
-	    		document.getElementById("formatoMedia").innerHTML="(.mp4 máx:6MB)";
-	    	}
 	    }
 
-		
+		function comprobar(){
+			var tipoM=document.getElementById("tipoMensaje").value;
+			if(tipoM == 2){
+				if(document.getElementById("url").value.length>0){
+					return true;
+				}
+				else{
+					alert("No ha ingresado una URL.");
+					return false;
+				}
+			}
+			return true;
+			
+		} 
 	</script> 
   
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -304,7 +329,7 @@ session.setAttribute("disponibles",disponible );
 				<h1 class="page-header">Servicio de Mensajería Whatsapp<img style="padding-left:10px;" class="icoheader" src="imagenes/icoreloj.png"/><img class="icoheader" src="imagenes/icopastel.png"/><img class="icoheader" src="imagenes/icoaudifonos.png"/><img class="icoheader" src="imagenes/icodescarga.png"/></h1>
 				<h4>SMS disponibles: <%= disponible %></h4>
 
-			  	<form  action="whatsapp" enctype="multipart/form-data" method="post" >
+			  	<form  action="whatsapp" enctype="multipart/form-data" method="post" onsubmit="return comprobar();" >
 			  	
 			  		<div class="row">
 			  			<div class="col-xs-4 col-xs-offset-1">
@@ -314,8 +339,8 @@ session.setAttribute("disponibles",disponible );
         			
 	        						<select  class="form-control" id="tipoMensaje" name="tipoMensaje" onchange="elegirTipoMensaje();">
 	        							<option value="1" selected>Texto</option>
-	        							<option value="2">Imagen</option>
-	        							<option value="3">Video</option>
+	        							<option value="2">Multimedia</option>
+	        							
 	        						</select>
         					
         					</div>
@@ -323,13 +348,29 @@ session.setAttribute("disponibles",disponible );
         				</div>
         			</div>
         					
-        			<div class="row">
+        			<div class="row" id="iframeSubir" style="display:none;">
         			
         				
         				<div class="col-xs-offset-1">
         				
-        					<iframe src="http://analixdata.com/upload/" width="550px" height="250px" scrolling="no"></iframe>
+        					<iframe src="http://analixdata.com/upload/" width="800px" height="240px" frameBorder="0" seamless='seamless' scrolling="no"></iframe>
+			  				
 			  			</div>
+			  			
+			  			<div class="col-xs-1">
+        					<div class="form-group">
+        						<label for="idTexto">URL generado:</label>
+        					</div>
+        				</div>
+        				
+        				<div class="col-xs-4">
+        					<div class="form-group">
+        						<input class="form-control" type="text" name="url" id="url">
+        						
+
+        					</div>
+        				</div>
+        				
 			  		</div>
 			  		
 			  		<div class="row">
@@ -413,7 +454,7 @@ session.setAttribute("disponibles",disponible );
 												<%
 												break;
 							case 2:
-												cod= "EL ARCHIVO DE TEXTO O CSV CONTIENE ERRORES!";
+												cod= "EL ARCHIVO PROPORCIONADO CONTIENE ERRORES. POR FAVOR REVISELO E INTENTE NUEVAMENTE.";
 												%>
 													<div class="alert alert-danger">
 													  <strong>Error!</strong> <%= cod %>
@@ -453,7 +494,16 @@ session.setAttribute("disponibles",disponible );
 												<%
 												break;
 							case 7:
-												cod= "ERROR EN LA PLATAFORMA DE ENVIO. POR FAVOR, COMUNICARSE CON ANALIXDATA URGENTEMENTE";
+												cod= "OPERACION ERRÓNEA. POR FAVOR, COMUNICARSE CON ANALIXDATA URGENTEMENTE";
+												%>
+													<div class="alert alert-danger">
+													  <strong>Error!</strong> <%= cod %>
+													</div>	
+												<%
+												break;
+												
+							case 8:
+												cod= "EL MENSAJE CONTENÍA MÁS CARACTERES DE LO PERMITIDO, FAVOR REVISE SU TEXTO E INTÉNTELO NUEVAMENTE.";
 												%>
 													<div class="alert alert-danger">
 													  <strong>Error!</strong> <%= cod %>

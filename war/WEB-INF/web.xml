@@ -206,12 +206,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     </servlet-mapping>
     
     <servlet>
-        <servlet-name>Meteordesk</servlet-name>
-        <servlet-class>com.analixdata.controladores.Meteordesk</servlet-class>
+        <servlet-name>comunidades</servlet-name>
+        <servlet-class>com.analixdata.controladores.ComunidadesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Meteordesk</servlet-name>
-        <url-pattern>/Meteordesk</url-pattern>
+        <servlet-name>comunidades</servlet-name>
+        <url-pattern>/comunidades</url-pattern>
     </servlet-mapping>
     
     
