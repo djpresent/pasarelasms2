@@ -24,7 +24,18 @@
 	  <script type="text/javascript" src="js/jspdf.js"></script>
 	  <script type="text/javascript" src="js/base64.js"></script>
 	  
+	  
+	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+	  
 	  <script>
+	  $(document).ready(function() {
+		    $('#reportes').DataTable( {
+		        "pagingType": "full_numbers"
+		    } );
+		} );
+	  	
 		  $(function() {
 		    $( "#fechaDesde" ).datepicker({ dateFormat: 'yy-mm-dd' }).val();
 		    
@@ -34,7 +45,7 @@
 	  </script>
 	  
 	  <SCRIPT type=text/javascript>
-	
+		
 	
 		$(function() {
 			
@@ -527,24 +538,43 @@ if(cookie.getName().equals("usuario"))
 										
 										<h4>Los resultados son:</h4>
 										<input type="button" onclick="CreateExcelSheet()" value="Exportar a Excel"></input>
-										<table class="table table-bordered table-condensed  table2excel" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
-										<tr>
-											<td style="width: 6%;">ID</td>
-											<td style="width: 8%;">Fecha</td>
-											<td style="width: 7%;">Hora</td>
-											<td style="width: 10%;">Código de retorno</td>
-											<td style="width: 9%;">Plataforma</td>
-											<td style="width: 10%;">Celular</td>
-											<td>Mensaje</td>
-											<td style="width: 10%;">Empresa</td>
-											<td style="width: 9%;">Usuario</td>
-											<td style="width: 8%;">Servicio</td>
-				
-										</tr>
+										<table id="example" class="table table-bordered table-condensed  table2excel display" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
+										<thead>
+											<tr>
+												<td style="width: 6%;">ID</td>
+												<td style="width: 8%;">Fecha</td>
+												<td style="width: 7%;">Hora</td>
+												<td style="width: 10%;">Código de retorno</td>
+												<td style="width: 9%;">Plataforma</td>
+												<td style="width: 10%;">Celular</td>
+												<td>Mensaje</td>
+												<td style="width: 10%;">Empresa</td>
+												<td style="width: 9%;">Usuario</td>
+												<td style="width: 8%;">Servicio</td>
+					
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<td style="width: 6%;">ID</td>
+												<td style="width: 8%;">Fecha</td>
+												<td style="width: 7%;">Hora</td>
+												<td style="width: 10%;">Código de retorno</td>
+												<td style="width: 9%;">Plataforma</td>
+												<td style="width: 10%;">Celular</td>
+												<td>Mensaje</td>
+												<td style="width: 10%;">Empresa</td>
+												<td style="width: 9%;">Usuario</td>
+												<td style="width: 8%;">Servicio</td>
+					
+											</tr>
+										</tfoot>
+										<tbody>
 									<% 
 										for (int i =0;i< transacciones.size();i++)
 										{
 											%>
+											
 											<tr>
 												<td><%= transacciones.get(i).getId() %></td>
 												<td><%= transacciones.get(i).getFecha() %></td>
@@ -561,7 +591,7 @@ if(cookie.getName().equals("usuario"))
 										}
 										%>
 										 
-										 
+										 </tbody>
 										</table>
 										<%
 							}
@@ -573,19 +603,38 @@ if(cookie.getName().equals("usuario"))
 								<h4>Los resultados son:</h4>
 								<input type="button" onclick="CreateExcelSheet()" value="Exportar a Excel"></input>
 								<table class="table table-bordered table-condensed  table2excel" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
-								<tr>
-									<td style="width: 6%;">ID</td>
-									<td style="width: 8%;">Fecha</td>
-									<td style="width: 7%;">Hora</td>
-									<td style="width: 10%;">Código de retorno</td>
-									<td style="width: 9%;">ID Interno</td>
-									<td style="width: 10%;">Celular</td>
-									<td>Mensaje</td>
-									<td style="width: 10%;">Empresa</td>
-									<td style="width: 9%;">Usuario</td>
-									<td style="width: 8%;">Servicio</td>
-		
-								</tr>
+								<thead>
+									<tr>
+										<td style="width: 6%;">ID</td>
+										<td style="width: 8%;">Fecha</td>
+										<td style="width: 7%;">Hora</td>
+										<td style="width: 10%;">Código de retorno</td>
+										<td style="width: 9%;">ID Interno</td>
+										<td style="width: 10%;">Celular</td>
+										<td>Mensaje</td>
+										<td style="width: 10%;">Empresa</td>
+										<td style="width: 9%;">Usuario</td>
+										<td style="width: 8%;">Servicio</td>
+			
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<td style="width: 6%;">ID</td>
+										<td style="width: 8%;">Fecha</td>
+										<td style="width: 7%;">Hora</td>
+										<td style="width: 10%;">Código de retorno</td>
+										<td style="width: 9%;">ID Interno</td>
+										<td style="width: 10%;">Celular</td>
+										<td>Mensaje</td>
+										<td style="width: 10%;">Empresa</td>
+										<td style="width: 9%;">Usuario</td>
+										<td style="width: 8%;">Servicio</td>
+			
+									</tr>
+								</tfoot>
+								<tbody>
+								
 							<% 
 								for (int i =0;i< transacciones.size();i++)
 								{
@@ -606,7 +655,7 @@ if(cookie.getName().equals("usuario"))
 								}
 								%>
 								 
-								 
+								 </tbody>
 								</table>
 								<%
 								
