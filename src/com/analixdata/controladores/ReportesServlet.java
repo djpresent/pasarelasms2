@@ -151,7 +151,7 @@ public class ReportesServlet extends HttpServlet
 				        
 		
 				        
-				        
+				        session.setAttribute("usu", "nousuario");
 				        session.setAttribute("empresa", empresa);
 				        session.setAttribute("ser", ser);
 				        session.setAttribute("fDesde", fechaDesde);

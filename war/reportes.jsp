@@ -48,11 +48,16 @@
 		    });
 		});
 	
-		$(function() {
-		    $('#rServicio').on('change', function(event) {
-		    	document.getElementById("btnContinuarUsuarios").click();
-		    });
-		});
+
+		 $(function() {
+			    $('#rServicio').on('change', function(event) {
+			    	var ser = document.getElementById("rServicio").value;
+			    	if (ser!="noservicio")
+			    	{
+			    	document.getElementById("btnContinuarUsuarios").click();
+			    	}
+			    });
+			});
 		
 		$("#tablaResultados").table2excel({
 		    exclude: ".excludeThisClass",
@@ -85,14 +90,24 @@
 		  {
 			  var emp = document.getElementById('rEmpresa').value;
 			  
-			  if (emp=="noempresa")
+			if (emp=="noempresa")
 			{
 				  alert('Debe seleccionar una empresa');
 				  return false;
 			}
-			  else
+			else
 			{
+				  var servicio = document.getElementById('rServicio').value;
+				  
+				 if (servicio=="noservicio")
+				{
+					  alert('Debe seleccionar un servicio');
+					  return false;
+				}
+				 else
+				{
 				  return true;
+				}
 			}
 		  }
 
@@ -341,7 +356,7 @@ if(cookie.getName().equals("usuario"))
 									%>
 									
 									<select class="form-control" name="reporteServicio" id="rServicio" >
-										
+									<option value="noservicio" selected >Seleccione un servicio....</option>		
 									<% 
 									
 									if (!(session.getAttribute("ser")==null))
@@ -474,7 +489,7 @@ if(cookie.getName().equals("usuario"))
 									%>
 									
 									</select>
-									<input type="submit" class="oculto" value="ContinuarUs" name="btnContinuarUsuarios" id="btnContinuarUsuarios"/>
+									
 									<% 	
 									}
 									%>	
