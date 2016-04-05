@@ -169,7 +169,6 @@ ResultSet rs = conn.createStatement().executeQuery(
 								
 								<%
 								
-<%
 								
 								if( u.tieneServicio(1)){
 									%>
