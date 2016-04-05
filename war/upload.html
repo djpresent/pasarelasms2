@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Analixdata - Subida de archivos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+	function handleFiles(files) 
+		{
+		      // Check for the various File API support.
+			if (window.FileReader) {
+				getAsText(files[0]);
+			} else 
+			{
+		    	alert('Su navegador no le permite subir archivos.');
+			}
+		}
+
+	function elegirTipoMensaje(){
+	    	var tipoM=document.getElementById("tipoMensaje").value;
+	    	
+	    	if(tipoM == 1){
+	    		document.getElementById("textoTipo").style.display='block';
+	    		document.getElementById("inputTipoMensaje").style.display='block';
+	    		document.getElementById("textoMedia").innerHTML="Imagen";
+	    		document.getElementById("formatoMedia").innerHTML="(.jpg máx:2MB)";
+	    	}
+	    	
+	    	if(tipoM == 2){
+	    		document.getElementById("textoTipo").style.display='block';
+	    		document.getElementById("inputTipoMensaje").style.display='block';
+	    		document.getElementById("textoMedia").innerHTML="Video";
+	    		document.getElementById("formatoMedia").innerHTML="(.mp4 máx:6MB)";
+	    	}
+	    }
+
+	 function mostrar(){
+	 	document.getElementById("cargando").style.display='block';
+	 	document.getElementById("formulario").style.display='none';
+	 }
+
+
+</script>
+ 	<form  id="formulario" action="http://analixdata.com/upload/upload.php" enctype="multipart/form-data" method="post" onsubmit="mostrar()" >
+			  	
+			  		<div class="row">
+			  			<div class="col-xs-4 col-xs-offset-1">
+			  				
+			  				<div class="form-group">
+        						<label for="idTexto">Tipo de archivo</label>
+        			
+	        						<select  class="form-control" id="tipoMensaje" name="tipoMensaje" onchange="elegirTipoMensaje();">
+	        							<option value="0">Elegir</option>
+	        							<option value="1">Imagen</option>
+	        							<option value="2">Video</option>
+	        						</select>
+        					
+        					</div>
+        					
+        				</div>
+        			</div>
+        					
+        			<div class="row">
+        				
+        					<div class="col-xs-1" id="textoTipo" style="display:none">
+	        					<div class="form-group">
+	        						<label for="media" id="textoMedia">Imagen:</label>
+	        						<label id="formatoMedia">(.jpg máx:2MB)</label>
+	        					</div>
+        					</div>
+			  			
+			  				<div class="col-xs-4" id="inputTipoMensaje" style="display:none">
+				  				<div class="form-group">
+		        					<input  type="file" name="media" onchange="handleFiles(this.files)" accept=".jpg,.mp4" />
+		        				</div>
+	        				</div>
+			  		
+			  		</div>
+			  	
+        			<div class="row">
+        				<div class="col-xs-1">
+        					<div class="form-group">
+        						
+        					</div>
+        				</div>
+        				<div class="col-xs-4">
+        					<div class="form-group">
+        					
+			  					<input class="form-control"  onclick="return confirm('¿Confirmar?')"  type="submit" value="Subir" /></td>
+        					</div>
+        				</div>
+        			</div>
+
+			  	</form>
+			  	<div id="cargando" style="display: none;" class="col-xs-4 col-xs-offset-1">
+			  		<p>Por favor espere mientras el archivo es almacenado en el servidor.</p>
+			  		<p>Una URL será proporcionada al culminar.</p>
+			  		<img class="col-xs-offset-4" src="http://www.natro.com/images/loading_ajax.gif" />
+			  	</div>
+
+
+</body>
+</html>

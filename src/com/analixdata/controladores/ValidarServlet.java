@@ -51,6 +51,7 @@ public class ValidarServlet extends HttpServlet {
 				session.setMaxInactiveInterval(30*60);
 	            Cookie userName = new Cookie ("usuario",u2.getNombres()+" "+u2.getApellidos());
 	            userName.setMaxAge(30*60);
+	            session.setAttribute("token", null);
 	            resp.addCookie(userName);			
 				resp.sendRedirect("index.jsp");
 			}

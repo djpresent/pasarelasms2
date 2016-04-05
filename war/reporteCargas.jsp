@@ -158,6 +158,8 @@ if(cookie.getName().equals("usuario"))
 								<li><a href="servicioUsuarios.jsp"><h5>Servicios a Usuarios</h5></a></li>
 									
 									<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
+								<li><a href="whatsapp.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Whatsapp</h5></a></li>
+								
 								<li><a href="reportes.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reporte SMS</h5></a></li>
 									<li><a href="reporteCargas.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reporte Cargas </h5></a></li>
 									
@@ -173,6 +175,15 @@ if(cookie.getName().equals("usuario"))
 									<%if( u.tieneServicio(1)){
 										%>
 									<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
+									
+									<%}
+									if( u.tieneServicio(3)){
+										%>
+									<li><a href="whatsapp.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Whatsapp</h5></a></li>
+								
+									<%}
+									if( u.tieneServicio(1) || u.tieneServicio(3)){
+										%>
 									<li><a href="reportesEmpresas.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reportes</h5></a></li>
 									
 									<%}
@@ -187,11 +198,19 @@ if(cookie.getName().equals("usuario"))
 								
 								if( u.tieneServicio(1)){
 									%>
-									
-									<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
-									<li><a href="reportesUsuarios.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reportes</h5></a></li>
-									
-									<%}
+								<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
+								
+								<%}
+								if( u.tieneServicio(3)){
+									%>
+								<li><a href="whatsapp.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Whatsapp</h5></a></li>
+							
+								<%}
+								if( u.tieneServicio(1) || u.tieneServicio(3)){
+									%>
+								<li><a href="reportesUsuarios.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reportes</h5></a></li>
+								
+								<%}
 							}
 							
 							

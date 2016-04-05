@@ -146,6 +146,8 @@ ResultSet rs = conn.createStatement().executeQuery(
 									
 									
 									<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
+								<li><a href="whatsapp.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Whatsapp</h5></a></li>
+								
 								<li><a href="reportes.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reporte SMS</h5></a></li>
 									<li><a href="reporteCargas.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reporte Cargas </h5></a></li>
 										
@@ -158,9 +160,19 @@ ResultSet rs = conn.createStatement().executeQuery(
 									<li ><a href="serviciosContratados.jsp"><h5><img class="icomenu" src="imagenes/icoservicios.png"/>Servicios</h5></a></li>
 									<li><a href="usuarios.jsp"><h5><img class="icomenu" src="imagenes/icousuarios.png"/>Usuarios</h5></a></li>
 									<li><a href="servicioUEmpresa.jsp">Servicios a Usuarios</a></li>
-									<%if( u.tieneServicio(1)){
+									<%
+									if( u.tieneServicio(1)){
 										%>
 									<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
+									
+									<%}
+									if( u.tieneServicio(3)){
+										%>
+									<li><a href="whatsapp.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Whatsapp</h5></a></li>
+								
+									<%}
+									if( u.tieneServicio(1) || u.tieneServicio(3)){
+										%>
 									<li><a href="reportesEmpresas.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reportes</h5></a></li>
 									
 									<%}
@@ -174,11 +186,19 @@ ResultSet rs = conn.createStatement().executeQuery(
 								
 								if( u.tieneServicio(1)){
 									%>
-									
-									<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
-									<li><a href="reportesUsuarios.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reportes</h5></a></li>
-									
-									<%}
+								<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
+								
+								<%}
+								if( u.tieneServicio(3)){
+									%>
+								<li><a href="whatsapp.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Whatsapp</h5></a></li>
+							
+								<%}
+								if( u.tieneServicio(1) || u.tieneServicio(3)){
+									%>
+								<li><a href="reportesUsuarios.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reportes</h5></a></li>
+								
+								<%}
 							}
 							
 							

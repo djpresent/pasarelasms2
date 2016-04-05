@@ -271,6 +271,7 @@ session.setAttribute("disponibles",disponible );
 								<li ><a href="servicioEmpresa.jsp"><h5>Servicios a empresas</h5></a></li>
 								<li><a href="servicioUsuarios.jsp"><h5>Servicios a Usuarios</h5></a></li>
 								<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
+								<li><a href="whatsapp.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Whatsapp</h5></a></li>
 								
 									<li><a href="reportes.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reporte SMS</h5></a></li>
 									<li><a href="reporteCargas.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reporte Cargas </h5></a></li>
@@ -284,9 +285,19 @@ session.setAttribute("disponibles",disponible );
 									<li ><a href="serviciosContratados.jsp"><h5><img class="icomenu" src="imagenes/icoservicios.png"/>Servicios</h5></a></li>
 									<li><a href="usuarios.jsp"><h5><img class="icomenu" src="imagenes/icousuarios.png"/>Usuarios</h5></a></li>
 									<li><a href="servicioUEmpresa.jsp">Servicios a Usuarios</a></li>
-									<%if( u.tieneServicio(1)){
+									<%
+									if( u.tieneServicio(1)){
 										%>
 									<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
+									
+									<%}
+									if( u.tieneServicio(3)){
+										%>
+									<li><a href="whatsapp.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Whatsapp</h5></a></li>
+								
+									<%}
+									if( u.tieneServicio(1) || u.tieneServicio(3)){
+										%>
 									<li><a href="reportesEmpresas.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reportes</h5></a></li>
 									
 									<%}
@@ -301,11 +312,19 @@ session.setAttribute("disponibles",disponible );
 								
 								if( u.tieneServicio(1)){
 									%>
-									
-									<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
-									<li><a href="reportesUsuarios.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reportes</h5></a></li>
-									
-									<%}
+								<li><a href="mensajeria.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Mensajería</h5></a></li>
+								
+								<%}
+								if( u.tieneServicio(3)){
+									%>
+								<li><a href="whatsapp.jsp"><h5><img class="icomenu" src="imagenes/icomensajeria.png"/>Whatsapp</h5></a></li>
+							
+								<%}
+								if( u.tieneServicio(1) || u.tieneServicio(3)){
+									%>
+								<li><a href="reportesUsuarios.jsp"><h5><img class="icomenu" src="imagenes/icoreportes.png"/>Reportes</h5></a></li>
+								
+								<%}
 							}
 							
 							
@@ -327,7 +346,7 @@ session.setAttribute("disponibles",disponible );
 		
 			<div class="col-sm-9 col-md-9 main">
 				<h1 class="page-header">Servicio de Mensajería Whatsapp<img style="padding-left:10px;" class="icoheader" src="imagenes/icoreloj.png"/><img class="icoheader" src="imagenes/icopastel.png"/><img class="icoheader" src="imagenes/icoaudifonos.png"/><img class="icoheader" src="imagenes/icodescarga.png"/></h1>
-				<h4>SMS disponibles: <%= disponible %></h4>
+				<h4>Disponibles: <%= disponible %></h4>
 
 			  	<form  action="whatsapp" enctype="multipart/form-data" method="post" onsubmit="return comprobar();" >
 			  	
@@ -353,7 +372,7 @@ session.setAttribute("disponibles",disponible );
         				
         				<div class="col-xs-offset-1">
         				
-        					<iframe src="http://analixdata.com/upload/" width="800px" height="240px" frameBorder="0" seamless='seamless' scrolling="no"></iframe>
+        					<iframe src="upload.html" width="800px" height="240px" frameBorder="0" seamless='seamless' scrolling="no"></iframe>
 			  				
 			  			</div>
 			  			
