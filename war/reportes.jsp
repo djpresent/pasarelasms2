@@ -24,18 +24,19 @@
 	  <script type="text/javascript" src="js/jspdf.js"></script>
 	  <script type="text/javascript" src="js/base64.js"></script>
 	  
-	  
-	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+
+	<script src="js/jquery.dataTables.js"></script>
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
 	  
+	  
 	  <script>
+	 
 	  $(document).ready(function() {
-		    $('#reportes').DataTable( {
+		    $('#example').DataTable( {
 		        "pagingType": "full_numbers"
 		    } );
 		} );
-	  	
+
 		  $(function() {
 		    $( "#fechaDesde" ).datepicker({ dateFormat: 'yy-mm-dd' }).val();
 		    
@@ -259,7 +260,7 @@ if(cookie.getName().equals("usuario"))
 					</ul>
 				</div>
 		
-			<div class="col-sm-9 col-md-9 main">
+			<div class="col-sm-10 col-md-10 main">
 				<h1 class="page-header">Reportes<img style="padding-left:10px;" class="icoheader" src="imagenes/icoreloj.png"/><img class="icoheader" src="imagenes/icopastel.png"/><img class="icoheader" src="imagenes/icoaudifonos.png"/><img class="icoheader" src="imagenes/icodescarga.png"/></h1>
 				
 				<form onsubmit="return verificar();" action="/reporteTransacciones">
@@ -538,7 +539,7 @@ if(cookie.getName().equals("usuario"))
 										
 										<h4>Los resultados son:</h4>
 										<input type="button" onclick="CreateExcelSheet()" value="Exportar a Excel"></input>
-										<table id="example" class="table table-bordered table-condensed  table2excel display" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
+										<table id="example" class="display table2excel" width="100%" cellspacing="0" style="font-size: 85%;">
 										<thead>
 											<tr>
 												<td style="width: 6%;">ID</td>
@@ -602,7 +603,7 @@ if(cookie.getName().equals("usuario"))
 								
 								<h4>Los resultados son:</h4>
 								<input type="button" onclick="CreateExcelSheet()" value="Exportar a Excel"></input>
-								<table class="table table-bordered table-condensed  table2excel" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
+								<table id="example" class="table table-bordered table-condensed  table2excel" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
 								<thead>
 									<tr>
 										<td style="width: 6%;">ID</td>
