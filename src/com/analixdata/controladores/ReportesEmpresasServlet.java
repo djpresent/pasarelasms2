@@ -124,7 +124,9 @@ public class ReportesEmpresasServlet extends HttpServlet
 			    		 u = (Usuario)session.getAttribute("usuario");
 			    		
 	  
-			    			ResultSet rs = conn.createStatement().executeQuery("SELECT idtransaccion,fecha,hora,retorno,plataforma,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa,idEnvio FROM  pasarelasms.transaccion, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=transaccion.idservicio AND usuario.idusuario= transaccion.idusuario and empresa.idempresa = transaccion.idempresa and empresa.idempresa="+u.getEmpresa().getIdEmpresa()+"  AND usuario.idusuario="+u.getId()+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtransaccion desc; ");
+			    			
+			    			ResultSet rs = conn.createStatement().executeQuery("SELECT idtransaccion,fecha,hora,retorno,plataforma,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa,idEnvio FROM  pasarelasms.transaccion, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=transaccion.idservicio AND usuario.idusuario= transaccion.idusuario and empresa.idempresa = transaccion.idempresa and empresa.idempresa="+u.getEmpresa().getIdEmpresa()+"  AND usuario.idusuario="+usu+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtransaccion desc; ");
+				    		
 			    			List <Transaccion> transacciones =null;
 			    			while(rs.next())
 					    	{
@@ -164,7 +166,7 @@ public class ReportesEmpresasServlet extends HttpServlet
 					    session.setAttribute("fHasta", fechaHasta);
 					    session.setAttribute("envios", envios);
 					    //System.out.println(envios.size());
-					    resp.sendRedirect("reportesUsuarios.jsp");
+					    resp.sendRedirect("reportesEmpresas.jsp");
 					    
 					    
 			    	}
@@ -180,9 +182,8 @@ public class ReportesEmpresasServlet extends HttpServlet
 			    		 //String empresa = u.getEmpresa().getNombre();
 			    		
 			    		
-	  
-			    		 ResultSet rs = conn.createStatement().executeQuery("SELECT idtwhatsapp,idinterno,fecha,hora,retorno,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa,idEnvio FROM  pasarelasms.twhatsapp, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=twhatsapp.idservicio AND usuario.idusuario= twhatsapp.idusuario and empresa.idempresa = twhatsapp.idempresa AND empresa.nombre= '"+u.getEmpresa().getNombre()+"' AND servicio.idservicio="+ser+" AND usuario.idusuario="+u.getId()+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtwhatsapp desc; ");
-		    				
+			    		 ResultSet rs = conn.createStatement().executeQuery("SELECT idtwhatsapp,idinterno,fecha,hora,retorno,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa,idEnvio FROM  pasarelasms.twhatsapp, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=twhatsapp.idservicio AND usuario.idusuario= twhatsapp.idusuario and empresa.idempresa = twhatsapp.idempresa AND empresa.idempresa= '"+u.getEmpresa().getIdEmpresa()+"'  AND usuario.idusuario="+usu+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtwhatsapp desc; ");
+		    					
 			    		  while(rs.next())
 				    	  {
 			    			  if (anterior==0)
