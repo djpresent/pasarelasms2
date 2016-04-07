@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
+<%@ page import= "java.util.ArrayList" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="com.google.appengine.api.utils.SystemProperty" %>
 <%@ page import="com.analixdata.modelos.Usuario" %>
@@ -9,11 +10,17 @@
 
 <html>
 <head>
-	  	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	  	
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+		
+
 	  	<link rel="stylesheet" type="text/css" href="css/estilos.css">
 	    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
 	  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	  <script src="js/jquery.table2excel.js"></script>
 	  
@@ -85,6 +92,14 @@
 			}
 		  }
 		  
+		  
+		  function abrir(m)
+		  {
+			  //alert(m);
+			 // document.getElementById(tab).style.display='block';
+		    $("#".concat(m)).modal();
+		  }
+
 		  
 		  
 	  </script>
@@ -455,51 +470,120 @@
 			<div class="table-responsive">
 
 				<%
-					if(!(session.getAttribute("transacciones") == null))
+					if(!(session.getAttribute("envios") == null))
 					{
-						List <Transaccion> transacciones = (List <Transaccion>)session.getAttribute("transacciones");
+						ArrayList <List>  envios =(ArrayList <List>) session.getAttribute("envios");
 						
-					System.out.println(transacciones.size());
-						if (transacciones.size()>0)
+					System.out.println(envios.size());
+						if (envios.size()>0)
 						{
 							if (Integer.parseInt(session.getAttribute("servicio").toString())==1)
 							{
 								%>
 										
 										<h4>Los resultados son:</h4>
-										<input type="button" onclick="CreateExcelSheet()" value="Exportar a Excel"></input>
-										<table class="table table-bordered table-condensed  table2excel" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
+							
+										<table class="table table-bordered table-condensed "  style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
 										<tr>
-											<td style="width: 6%;">ID</td>
+											<td style="width: 6%; text-align:center;">ID</td>
 											<td style="width: 8%;">Fecha</td>
-											<td style="width: 7%;">Hora</td>
-											<td style="width: 10%;">Código de retorno</td>
-											<td style="width: 9%;">Plataforma</td>
-											<td style="width: 10%;">Celular</td>
-											<td>Mensaje</td>
-											<td style="width: 10%;">Empresa</td>
-											<td style="width: 9%;">Usuario</td>
-											<td style="width: 8%;">Servicio</td>
+											<td style="width: 30%;" >Mensaje Modelo</td>
+											<td style="width: 12%; text-align:center;">Cantidad de SMS</td>
+											<td style="width: 12%;">Acción</td>
+											<td style="width:0%;"></td>
 				
 										</tr>
 									<% 
-										for (int i =0;i< transacciones.size();i++)
-										{
-											%>
-											<tr>
-												<td><%= transacciones.get(i).getId() %></td>
-												<td><%= transacciones.get(i).getFecha() %></td>
-												<td><%= transacciones.get(i).getHora() %></td>
-												<td> <%= transacciones.get(i).getCodRetorno() %></td>
-												<td><%= transacciones.get(i).getPlataforma() %></td>
-												<td><%= transacciones.get(i).getCelular() %></td>
-												<td><%= transacciones.get(i).getMensaje() %></td>
-												<td><%= transacciones.get(i).getNombreEmpresa() %></td>
-												<td><%= transacciones.get(i).getNombreUsuario() %></td>
-												<td><%= transacciones.get(i).getNombreServicio() %></td>
-											</tr>
-											<% 
-										}
+									for (int j=0;j<envios.size();j++)
+									{
+										//System.out.println("Entrooooooo");
+										List <Transaccion> transacciones = (List <Transaccion>)envios.get(j);
+										
+										//String nClase= String.valueOf(transacciones.get(0).getIdEnvio())+ transacciones.get(0).getFecha().toString();
+										String nClase=String.valueOf(transacciones.get(0).getIdEnvio());
+										String modal="myModal"+nClase;
+										//System.out.println(nClase);
+										%>
+										<tr >
+											<td style="text-align:center;"><%= transacciones.get(0).getIdEnvio()%></td>
+											<td><%= transacciones.get(0).getFecha() %></td>
+											<td><%= transacciones.get(0).getMensaje() %></td>
+											<td style="text-align:center;"> <%= transacciones.size() %></td>
+											<td style="text-align:center;">
+												<button type="button" onclick="abrir('<%= modal %>')">Ver detalle</button>
+												<input type="button" onclick="CreateExcelSheet(<%= nClase %>)" value="Exportar a Excel"/></td>
+											<td   >
+											<div class="container">
+							                      
+							                      <!-- Trigger the modal with a button -->
+							                      
+							                      <!-- Modal -->
+							                      <div class="modal fade" id="<%=modal %>" role="dialog">
+							                        <div class="modal-dialog-lg" style="width: 95%; top: 15%; margin: 4% auto auto;">
+							                        
+							                          <!-- Modal content-->
+							                          <div class="modal-content">
+							                            <div class="modal-header">
+							                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+							                              <h4 class="modal-title">Detalles</h4>
+							                            </div>
+							                            <div class="modal-body">
+
+												<table id="<%= nClase %>" class="<%= nClase %>" >
+													<tr>
+														<td style="width: 6%;">ID</td>
+														<td style="width: 8%;">Fecha</td>
+														<td style="width: 7%;">Hora</td>
+														<td style="width: 10%;">Código de retorno</td>
+														<td style="width: 9%;">Plataforma</td>
+														<td style="width: 10%;">Celular</td>
+														<td>Mensaje</td>
+														<td style="width: 10%;">Empresa</td>
+														<td style="width: 9%;">Usuario</td>
+														<td style="width: 8%;">Servicio</td>
+					
+												</tr>
+													<%
+													for (int i =0;i< transacciones.size();i++)
+													{
+														%>
+														<tr>
+															<td><%= transacciones.get(i).getId() %></td>
+															<td><%= transacciones.get(i).getFecha() %></td>
+															<td><%= transacciones.get(i).getHora() %></td>
+															<td> <%= transacciones.get(i).getCodRetorno() %></td>
+															<td><%= transacciones.get(i).getPlataforma() %></td>
+															<td><%= transacciones.get(i).getCelular().toString() %></td>
+															<td><%= transacciones.get(i).getMensaje() %></td>
+															<td><%= transacciones.get(i).getNombreEmpresa() %></td>
+															<td><%= transacciones.get(i).getNombreUsuario() %></td>
+															<td><%= transacciones.get(i).getNombreServicio() %></td>
+														</tr>
+														<% 
+													}
+
+													
+													
+													%>
+												</table>
+												</div>
+							                           		<div class="modal-footer">
+							                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							                            </div>
+							                          </div>
+							                          
+							                        </div>
+							                      </div>
+							                      
+							                    </div>
+											</td>
+											
+										</tr>
+										<% 
+										
+										
+										
+									}
 										%>
 										 
 										 
@@ -515,37 +599,108 @@
 								<input type="button" onclick="CreateExcelSheet()" value="Exportar a Excel"></input>
 								<table class="table table-bordered table-condensed  table2excel" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
 								<tr>
-									<td style="width: 6%;">ID</td>
+									
+									<td style="width: 6%; text-align:center;">ID</td>
 									<td style="width: 8%;">Fecha</td>
-									<td style="width: 7%;">Hora</td>
-									<td style="width: 10%;">Código de retorno</td>
-									<td style="width: 9%;">ID Interno</td>
-									<td style="width: 10%;">Celular</td>
-									<td>Mensaje</td>
-									<td style="width: 10%;">Empresa</td>
-									<td style="width: 9%;">Usuario</td>
-									<td style="width: 8%;">Servicio</td>
+									<td style="width: 30%;" >Mensaje Modelo</td>
+									<td style="width: 12%; text-align:center;">Cantidad de SMS</td>
+									<td style="width: 12%;">Acción</td>
+									<td style="width:0%;"></td>
 		
 								</tr>
-							<% 
-								for (int i =0;i< transacciones.size();i++)
-								{
-									%>
-									<tr>
-										<td><%= transacciones.get(i).getId() %></td>
-										<td><%= transacciones.get(i).getFecha() %></td>
-										<td><%= transacciones.get(i).getHora() %></td>
-										<td> <%= transacciones.get(i).getCodRetorno() %></td>
-										<td><%= transacciones.get(i).getPlataforma() %></td>
-										<td><%= transacciones.get(i).getCelular() %></td>
-										<td><%= transacciones.get(i).getMensaje() %></td>
-										<td><%= transacciones.get(i).getNombreEmpresa() %></td>
-										<td><%= transacciones.get(i).getNombreUsuario() %></td>
-										<td><%= transacciones.get(i).getNombreServicio() %></td>
-									</tr>
 									<% 
-								}
-								%>
+									for (int j=0;j<envios.size();j++)
+									{
+										//System.out.println("Entrooooooo");
+										List <Transaccion> transacciones = (List <Transaccion>)envios.get(j);
+										
+										//String nClase= String.valueOf(transacciones.get(0).getIdEnvio())+ transacciones.get(0).getFecha().toString();
+										String nClase=String.valueOf(transacciones.get(0).getIdEnvio());
+										String modal="myModal"+nClase;
+										//System.out.println(nClase);
+										%>
+										<tr >
+											<td style="text-align:center;"><%= transacciones.get(0).getIdEnvio()%></td>
+											<td><%= transacciones.get(0).getFecha() %></td>
+											<td><%= transacciones.get(0).getMensaje() %></td>
+											<td style="text-align:center;"> <%= transacciones.size() %></td>
+											<td style="text-align:center;">
+												<button type="button" onclick="abrir('<%= modal %>')">Ver detalle</button>
+												<input type="button" onclick="CreateExcelSheet(<%= nClase %>)" value="Exportar a Excel"/></td>
+											<td   >
+											<div class="container">
+							                      
+							                      <!-- Trigger the modal with a button -->
+							                      
+							                      <!-- Modal -->
+							                      <div class="modal fade" id="<%=modal %>" role="dialog">
+							                        <div class="modal-dialog-lg" style="width: 95%; top: 15%; margin: 4% auto auto;">
+							                        
+							                          <!-- Modal content-->
+							                          <div class="modal-content">
+							                            <div class="modal-header">
+							                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+							                              <h4 class="modal-title">Detalles</h4>
+							                            </div>
+							                            <div class="modal-body">
+
+												<table id="<%= nClase %>" class="<%= nClase %>" >
+													<tr>
+														<td style="width: 6%;">ID</td>
+														<td style="width: 8%;">Fecha</td>
+														<td style="width: 7%;">Hora</td>
+														<td style="width: 10%;">Código de retorno</td>
+														<td style="width: 9%;">ID Interno</td>
+														<td style="width: 10%;">Celular</td>
+														<td>Mensaje</td>
+														<td style="width: 10%;">Empresa</td>
+														<td style="width: 9%;">Usuario</td>
+														<td style="width: 8%;">Servicio</td>
+							
+													</tr>
+													<%
+													for (int i =0;i< transacciones.size();i++)
+													{
+														%>
+															<tr>
+																<td><%= transacciones.get(i).getId() %></td>
+																<td><%= transacciones.get(i).getFecha() %></td>
+																<td><%= transacciones.get(i).getHora() %></td>
+																<td> <%= transacciones.get(i).getCodRetorno() %></td>
+																<td><%= transacciones.get(i).getPlataforma() %></td>
+																<td><%= transacciones.get(i).getCelular() %></td>
+																<td><%= transacciones.get(i).getMensaje() %></td>
+																<td><%= transacciones.get(i).getNombreEmpresa() %></td>
+																<td><%= transacciones.get(i).getNombreUsuario() %></td>
+																<td><%= transacciones.get(i).getNombreServicio() %></td>
+															</tr>
+														<% 
+													}
+
+													
+													
+													%>
+												</table>
+												</div>
+							                           		<div class="modal-footer">
+							                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							                            </div>
+							                          </div>
+							                          
+							                        </div>
+							                      </div>
+							                      
+							                    </div>
+											</td>
+											
+										</tr>
+										<% 
+										
+										
+										
+									}
+										%>
+							
 								 
 								 
 								</table>
@@ -576,8 +731,7 @@
 				FIN DE LA TABLA DE REPORTES 
 				
 			-->	
-			
-			
+				
 			</div>	
 	
 		</div>

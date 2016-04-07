@@ -83,7 +83,7 @@
 		  
 		  function abrir(m)
 		  {
-			  alert(m);
+			  //alert(m);
 			 // document.getElementById(tab).style.display='block';
 		    $("#".concat(m)).modal();
 		  }
