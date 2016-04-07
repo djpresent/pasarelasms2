@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Transaccion implements Serializable {
 
-	private int id;
+	private int id,idEnvio;
 	private String fecha,hora,codRetorno,plataforma,celular,mensaje, nombreEmpresa, nombreUsuario, nombreServicio;
 	
 	public Transaccion(){}
@@ -12,7 +12,7 @@ public class Transaccion implements Serializable {
 
 	
 	public Transaccion(int id, String fecha, String hora, String codRetorno,String plataforma,
-			 String celular, String mensaje, String nombreServicio ,String nombreUsuario,String nombreEmpresa) {
+			 String celular, String mensaje, String nombreServicio ,String nombreUsuario,String nombreEmpresa,int idEnvio) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -24,6 +24,7 @@ public class Transaccion implements Serializable {
 		this.nombreEmpresa = nombreEmpresa;
 		this.nombreUsuario = nombreUsuario;
 		this.nombreServicio = nombreServicio;
+		this.idEnvio=idEnvio;
 	}
 
 
@@ -126,6 +127,19 @@ public class Transaccion implements Serializable {
 
 	public String getNombreEmpresa() {
 		return nombreEmpresa;
+	}
+
+	
+
+
+	public int getIdEnvio() {
+		return idEnvio;
+	}
+
+
+
+	public void setIdEnvio(int idEnvio) {
+		this.idEnvio = idEnvio;
 	}
 
 

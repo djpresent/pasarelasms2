@@ -181,8 +181,8 @@ public class ReportesServlet extends HttpServlet
 			    		  while(rs.next())
 				    	  {
 			    			//  System.out.println("Entró bucle ");
-				        		tran = new Transaccion(rs.getInt("idTransaccion"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
-				        		transacciones.add(tran);
+				        		//tran = new Transaccion(rs.getInt("idTransaccion"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
+				        		//transacciones.add(tran);
 				        		 
 				    	  }
 			    	  }
@@ -193,8 +193,8 @@ public class ReportesServlet extends HttpServlet
 			    		  while(rs.next())
 				    	  {
 			    			//  System.out.println("Entró bucle ");
-				        		tran = new Transaccion(rs.getInt("idTransaccion"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
-				        		transacciones.add(tran);
+				        		//tran = new Transaccion(rs.getInt("idTransaccion"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
+				        		//transacciones.add(tran);
 				    	  }
 			    	  }
 			    	  else if (usu.equals("nousuario"))
@@ -207,8 +207,8 @@ public class ReportesServlet extends HttpServlet
 				    		  while(rs.next())
 					    	  {
 				    			
-					        		tran = new Transaccion(rs.getInt("idTransaccion"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
-					        		transacciones.add(tran);
+					        		//tran = new Transaccion(rs.getInt("idTransaccion"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
+					        		//transacciones.add(tran);
 					    	  }
 			    		  }
 			    		  else if (Integer.parseInt(ser)==3) //Si son servicios de Whatsapp
@@ -218,8 +218,8 @@ public class ReportesServlet extends HttpServlet
 				    		  while(rs.next())
 					    	  {
 				    			
-					        		tran = new Transaccion(rs.getInt("idtwhatsapp"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("idinterno"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
-					        		transacciones.add(tran);
+					        		//tran = new Transaccion(rs.getInt("idtwhatsapp"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("idinterno"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
+					        		//transacciones.add(tran);
 					    	  }
 			    		  }
 			    	  }
@@ -232,8 +232,8 @@ public class ReportesServlet extends HttpServlet
 				    		  while(rs.next())
 					    	  {
 				    			
-					        		tran = new Transaccion(rs.getInt("idTransaccion"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
-					        		transacciones.add(tran);
+					        		//tran = new Transaccion(rs.getInt("idTransaccion"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
+					        		//transacciones.add(tran);
 					    	  }
 			    		  }
 			    		  else if (Integer.parseInt(ser)==3) //Si son servicios de Whatsapp
@@ -243,8 +243,8 @@ public class ReportesServlet extends HttpServlet
 				    		  while(rs.next())
 					    	  {
 				    			
-					        		tran = new Transaccion(rs.getInt("idtwhatsapp"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("idinterno"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
-					        		transacciones.add(tran);
+					        	//	tran = new Transaccion(rs.getInt("idtwhatsapp"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("idinterno"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
+					        	//	transacciones.add(tran);
 					    	  }
 			    		  }
 			    	  }
