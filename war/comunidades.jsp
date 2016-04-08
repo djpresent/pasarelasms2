@@ -11,22 +11,255 @@
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script>
     
-    
-    $.get('comunidades', function(data) {
-        alert(data);
-    });
-    
+    var listaOpenChats="";
+    var listaQueueChats="";
+    var listaClosedChats="";
     
     
-    $(document).ready(function () {
-		
-    	 $('.itemLista').on('click', function () {
-    	        $(this).parents('tr').toggleClass('selected');
-    	      });
+    function obtenerOpen(){
+    	$("#listaChats tr").remove();
     	
-     });
+    	if(listaOpenChats == ""){
+    	
+	        $.getJSON('comunidades',{
+	        	accion: "obtenerChats",
+	            opcion: "open"
+	         }, function(json) {
+	        	document.getElementById("openchats").innerHTML=json.chats.length;
+	        	listaOpenChats=json.chats;
+	            $.each(listaOpenChats, function (i, chat) {
+	            	
+	            	var listaChats = document.getElementById("listaChats");
+	            	var row = listaChats.insertRow(i);
+	            	var cell1 = row.insertCell(0);
+	
+	            	var contenido="<div class=\"media itemLista\" id=\""+chat.chatId+"\" onclick=\"abrirChat(this);\" >"+
+	    			"<a href=\"#\" class=\"pull-left\">"+
+	    			"<img src=\""+chat.profilePicture+"\" class=\"imgPersona\">"+
+	    			"</a>"+
+	    			"<div>"+
+	    			"<h4 class=\"title\">"+chat.whatsappName+"</h4>"+
+	    			"<p class=\"summary\">"+chat.chatUser+" - "+chat.lastMessage+"</p>"+
+	    			"</div>"+
+	    			"</div>";
+	
+	            	cell1.innerHTML = contenido;
+	            });
+	        });
+    	}else{
+    		$.each(listaOpenChats, function (i, chat) {
+            	
+            	var listaChats = document.getElementById("listaChats");
+            	var row = listaChats.insertRow(i);
+            	var cell1 = row.insertCell(0);
+
+            	var contenido="<div class=\"media itemLista\" id=\""+chat.chatId+"\" onclick=\"abrirChat(this);\" >"+
+    			"<a href=\"#\" class=\"pull-left\">"+
+    			"<img src=\""+chat.profilePicture+"\" class=\"imgPersona\">"+
+    			"</a>"+
+    			"<div>"+
+    			"<h4 class=\"title\">"+chat.whatsappName+"</h4>"+
+    			"<p class=\"summary\">"+chat.chatUser+" - "+chat.lastMessage+"</p>"+
+    			"</div>"+
+    			"</div>";
+
+            	cell1.innerHTML = contenido;
+            });
+    	}
+    }
     
-   
+    function obtenerClosed(){
+    	$("#listaChats tr").remove();
+    	
+    	if(listaClosedChats == ""){
+    	
+	        $.getJSON('comunidades',{
+	        	accion: "obtenerChats",
+	            opcion: "solved"
+	         }, function(json) {
+	        	document.getElementById("closedchats").innerHTML=json.chats.length;
+	        	listaClosedChats=json.chats;
+	            $.each(listaClosedChats, function (i, chat) {
+	            	
+	            	var listaChats = document.getElementById("listaChats");
+	            	var row = listaChats.insertRow(i);
+	            	var cell1 = row.insertCell(0);
+	
+	            	var contenido="<div class=\"media itemLista\" id=\""+chat.chatId+"\" onclick=\"abrirChat(this);\" >"+
+	    			"<a href=\"#\" class=\"pull-left\">"+
+	    			"<img src=\""+chat.profilePicture+"\" class=\"imgPersona\">"+
+	    			"</a>"+
+	    			"<div>"+
+	    			"<h4 class=\"title\">"+chat.whatsappName+"</h4>"+
+	    			"<p class=\"summary\">"+chat.chatUser+" - "+chat.lastMessage+"</p>"+
+	    			"</div>"+
+	    			"</div>";
+	
+	            	cell1.innerHTML = contenido;
+	            });
+	        });
+    	}else{
+				$.each(listaClosedChats, function (i, chat) {
+            	
+            	var listaChats = document.getElementById("listaChats");
+            	var row = listaChats.insertRow(i);
+            	var cell1 = row.insertCell(0);
+
+            	var contenido="<div class=\"media itemLista\" id=\""+chat.chatId+"\" onclick=\"abrirChat(this);\" >"+
+    			"<a href=\"#\" class=\"pull-left\">"+
+    			"<img src=\""+chat.profilePicture+"\" class=\"imgPersona\">"+
+    			"</a>"+
+    			"<div>"+
+    			"<h4 class=\"title\">"+chat.whatsappName+"</h4>"+
+    			"<p class=\"summary\">"+chat.chatUser+" - "+chat.lastMessage+"</p>"+
+    			"</div>"+
+    			"</div>";
+
+            	cell1.innerHTML = contenido;
+            });
+    	}
+    }
+    
+    
+    function obtenerQueue(){
+    	$("#listaChats tr").remove();
+    	
+    	if(listaQueueChats == ""){
+		        $.getJSON('comunidades',{
+		        	accion: "obtenerChats",
+		            opcion: "queue"
+		         }, function(json) {
+		        	document.getElementById("queuechats").innerHTML=json.chats.length;
+		        	listaQueueChats=json.chats;
+		            $.each(listaQueueChats, function (i, chat) {
+		            	
+		            	var listaChats = document.getElementById("listaChats");
+		            	var row = listaChats.insertRow(i);
+		            	var cell1 = row.insertCell(0);
+		
+		            	var contenido="<div class=\"media itemLista\" id=\""+chat.chatId+"\" onclick=\"abrirChat(this);\" >"+
+		    			"<a href=\"#\" class=\"pull-left\">"+
+		    			"<img src=\""+chat.profilePicture+"\" class=\"imgPersona\">"+
+		    			"</a>"+
+		    			"<div>"+
+		    			"<h4 class=\"title\">"+chat.whatsappName+"</h4>"+
+		    			"<p class=\"summary\">"+chat.chatUser+" - "+chat.lastMessage+"</p>"+
+		    			"</div>"+
+		    			"</div>";
+		
+		            	cell1.innerHTML = contenido;
+		            });
+		        });
+        
+			}else{
+				$.each(listaQueueChats, function (i, chat) {
+		    	
+		    	var listaChats = document.getElementById("listaChats");
+		    	var row = listaChats.insertRow(i);
+		    	var cell1 = row.insertCell(0);
+		
+		    	var contenido="<div class=\"media itemLista\" id=\""+chat.chatId+"\" onclick=\"abrirChat(this);\" >"+
+				"<a href=\"#\" class=\"pull-left\">"+
+				"<img src=\""+chat.profilePicture+"\" class=\"imgPersona\">"+
+				"</a>"+
+				"<div>"+
+				"<h4 class=\"title\">"+chat.whatsappName+"</h4>"+
+				"<p class=\"summary\">"+chat.chatUser+" - "+chat.lastMessage+"</p>"+
+				"</div>"+
+				"</div>";
+		
+		    	cell1.innerHTML = contenido;
+		    });
+		}
+    }
+    
+    var seleccionado="";
+    
+    function abrirChat(item) {
+    	
+    		var id=item.id;
+    		
+    		
+	        $("#"+id).parents('tr').toggleClass('selected');
+	        
+	        $("#"+seleccionado).parents('tr').toggleClass('selected');
+	        
+	        document.getElementById("contenedorMensajes").innerHTML="";
+	        document.getElementById('divCargando').style.display='block';
+	        
+			
+	        var matches = [];
+	        var searchEles = item.children;
+	        document.getElementById("imgPersona").src=searchEles[0].children[0].src;
+	        document.getElementById("nombrePersona").innerHTML=searchEles[1].children[0].innerHTML;
+  
+	        $.getJSON('comunidades',{
+	        	accion: "obtenerMensajes",
+	            opcion: id
+	         }, function(json) {
+	        	if(json.result.status==200){
+	        		 
+	 		        	
+	 		        	listaMensajes=json.result.data;
+	 		        
+	 		        	
+	 		        	var contenido="";
+	 		            $.each(listaMensajes, function (i, mensaje) {
+	 		            		
+	 		            	var time = new Date(mensaje.sendtime*1000);
+	 		            	var fecha=time.getDate()+"/"+(time.getMonth()+1)+" "+(time.getHours()-5)+":"+time.getMinutes();
+	 				        
+	 		            	if(mensaje.direction=="outbound"){
+	 		            	
+	 		         		contenido+="<div class=\"row msg_container base_sent\">"+
+            				"<div  style=\"padding: 0;\">"+
+       						"<div class=\"messages msg_sent\">"+
+            					"<p>"+mensaje.message+"</p>"+
+            					"<time>"+fecha+"</time>"+
+        					"</div>"+
+    					"</div>"+
+    					"<div class=\" avatar\">"+
+        					"<img src=\"http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg\" class=\" img-responsive \">"+
+    					"</div>"+
+					"</div>";
+					
+	 		            	}else{
+	 		            		contenido+="<div class=\"row msg_container base_receive\">"+
+	            				"<div  style=\"padding: 0;\">"+
+	       						"<div class=\"messages msg_receive\">"+
+	            					"<p>"+mensaje.message+"</p>"+
+	            					"<time>"+fecha+"</time>"+
+	        					"</div>"+
+	    					"</div>"+
+	    					"<div class=\" avatar\">"+
+	        					"<img src=\"http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg\" class=\" img-responsive \">"+
+	    					"</div>"+
+						"</div>";
+						
+	 		            		
+	 		            	}
+	 		            	
+	 		           
+	 		            		
+	 						
+	 		            	
+	 		            });
+	 		           document.getElementById('divCargando').style.display='none';
+	 		           var mensajes = document.getElementById("contenedorMensajes");
+	 		           mensajes.innerHTML = contenido;
+	 		      
+	        	}
+	        });
+	        
+	        seleccionado=item.id;
+	        
+	}
+    
+    obtenerOpen();
+    
+
+
+
     
     </script>
   </head>
@@ -171,15 +404,15 @@
 					</div >
 					<div class="col-sm-3 col-md-3" style="text-align: center;">
 						<h4 style="margin-top: 15%;">Tus chats</h4>
-						<button type="button" class="btn btn-primary btn-circle" style="background-color: rgb(232, 78, 27) ! important; border-color:#AF3B08 ! important; ">0</button>
+						<button id="openchats" onclick="obtenerOpen();" type="button" class="btn btn-primary btn-circle" style="background-color: rgb(232, 78, 27) ! important; border-color:#AF3B08 ! important; ">0</button>
 					</div>
 					<div class="col-sm-3 col-md-3" style="text-align: center;">
 						<h4 style="margin-top: 15%;">Chats sin asignar</h4>
-						<button type="button" class="btn btn-primary btn-circle" style="background-color: rgb(232, 78, 27) ! important; border-color:#AF3B08 ! important;">0</button>
+						<button id="queuechats" onclick="obtenerQueue();" type="button" class="btn btn-primary btn-circle" style="background-color: rgb(232, 78, 27) ! important; border-color:#AF3B08 ! important;">0</button>
 					</div>
 					<div class="col-sm-3 col-md-3" style="text-align: center;">
 						<h4 style="margin-top: 15%;">Chats Finalizados</h4>
-						<button type="button" class="btn btn-primary btn-circle" style="background-color: rgb(232, 78, 27) ! important; border-color:#AF3B08 ! important;">0</button>
+						<button id="closedchats" onclick="obtenerClosed();" type="button" class="btn btn-primary btn-circle" style="background-color: rgb(232, 78, 27) ! important; border-color:#AF3B08 ! important;">0</button>
 					</div>
 				</div>	
 				
@@ -196,41 +429,8 @@
 						                        	</h3>
 						                    </div>
 						                </div>
-						                <div class="panel-body lista ">
-						                	<table class="table table-filter">
-												<tbody>
-													<tr >
-														<td>
-															<div class="media itemLista">
-																<a href="#" class="pull-left">
-																	<img src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="imgPersona">
-																</a>
-																<div >
-																	<h4 class="title">
-																		Alina Guerrero
-																	</h4>
-																	<p class="summary">METROCAR - 14/3 17:54</p>
-																</div>
-															</div>
-														</td>
-													</tr>
-													<tr >
-														<td>
-															<div class="media itemLista">
-																<a href="#" class="pull-left">
-																	<img src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="imgPersona">
-																</a>
-																<div >
-																	<h4 class="title">
-																		Geovanny Campoverde
-																	</h4>
-																	<p class="summary">METROCAR - 14/3 17:54</p>
-																</div>
-															</div>
-														</td>
-													</tr>
-													
-												</tbody>
+						                <div class="panel-body lista" >
+						                	<table class="table table-filter" id="listaChats">
 											</table>    
 						                </div>
 						    		</div>
@@ -248,8 +448,8 @@
 						                    <div class="col-md-12 col-xs-12">
 						                        <div class="col-md-6 col-xs-6">
 						                        	<h3 class="panel-title">
-							                        	<img src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="imgPersona"/>Geovanny Campoverde
-						                        	</h3>
+							                        	<img src="http://servicios.analixdata.com/imagenes/icousuario.png" class="imgPersona" id="imgPersona"/><span id="nombrePersona"></span>
+							                        </h3>
 						                        </div>
 						                        <div class="col-md-6 col-xs-6">
 						                        	<div class="col-md-6 col-xs-6" style="text-align: center; padding-top: 2.5%;">
@@ -278,134 +478,18 @@
 						                    </div>
 
 						                </div>
-						                <div class="panel-body msg_container_base">
-						                    <div class="row msg_container base_sent">
-						                        <div  style="padding: 0;">
-						                            <div class="messages msg_sent">
-						                                <p>that mongodb thing looks good, huh?
-						                                tiny master db, and huge document store</p>
-						                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-						                            </div>
-						                        </div>
-						                        <div class=" avatar">
-						                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-						                        </div>
+						                <div class="panel-body msg_container_base" >
+						                    <div id="divCargando" style="text-align: center; padding: 50px;display:none">
+						                        <img src="http://www.natro.com/images/loading_ajax.gif" >
 						                    </div>
-						                    <div class="row msg_container base_receive">
-						                        <div class="avatar">
-						                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-						                        </div>
-						                        <div  style="padding: 0;">
-						                            <div class="messages msg_receive">
-						                                <p>that mongodb thing looks good, huh?
-						                                tiny master db, and huge document store</p>
-						                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-						                            </div>
-						                        </div>
+						                  	<div id="contenedorMensajes">
+                   							</div>
 						                    </div>
-						                    
-						                    
-						                    
-						                    
-						                    
-						                    
-						                    <div class="row msg_container base_receive">
-						                        <div class="avatar">
-						                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-						                        </div>
-						                        <div  style="padding: 0;">
-						                            <div class="messages msg_receive">
-						                                <p>that mongodb thing looks good, huh?
-						                                tiny master db, and huge document store</p>
-						                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-						                            </div>
-						                        </div>
-						                    </div>
-						                    <div class="row msg_container base_receive">
-						                        <div class="avatar">
-						                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-						                        </div>
-						                        <div  style="padding: 0;">
-						                            <div class="messages msg_receive">
-						                                <p>that mongodb thing looks good, huh?
-						                                tiny master db, and huge document store</p>
-						                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-						                            </div>
-						                        </div>
-						                    </div>
-						                    <div class="row msg_container base_receive">
-						                        <div class="avatar">
-						                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-						                        </div>
-						                        <div  style="padding: 0;">
-						                            <div class="messages msg_receive">
-						                                <p>that mongodb thing looks good, huh?
-						                                tiny master db, and huge document store</p>
-						                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-						                            </div>
-						                        </div>
-						                    </div>
-						                    <div class="row msg_container base_receive">
-						                        <div class="avatar">
-						                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-						                        </div>
-						                        <div  style="padding: 0;">
-						                            <div class="messages msg_receive">
-						                                <p>that mongodb thing looks good, huh?
-						                                tiny master db, and huge document store</p>
-						                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-						                            </div>
-						                        </div>
-						                    </div>
-						                    <div class="row msg_container base_receive">
-						                        <div class="avatar">
-						                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-						                        </div>
-						                        <div  style="padding: 0;">
-						                            <div class="messages msg_receive">
-						                                <p>that mongodb thing looks good, huh?
-						                                tiny master db, and huge document store</p>
-						                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-						                            </div>
-						                        </div>
-						                    </div>
-						                    <div class="row msg_container base_receive">
-						                        <div class="avatar">
-						                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-						                        </div>
-						                        <div  style="padding: 0;">
-						                            <div class="messages msg_receive">
-						                                <p>that mongodb thing looks good, huh?
-						                                tiny master db, and huge document store</p>
-						                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-						                            </div>
-						                        </div>
-						                    </div>
-						                    <div class="row msg_container base_receive">
-						                        <div class="avatar">
-						                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-						                        </div>
-						                        <div  style="padding: 0;">
-						                            <div class="messages msg_receive">
-						                                <p>that mongodb thing looks good, huh?
-						                                tiny master db, and huge document store</p>
-						                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-						                            </div>
-						                        </div>
-						                    </div>
-						                    </div>
-						                    
-						                    
-						                    
-						                    
-						                    
-						                    
-						                    
 						                    
 						                   
 						                <div class="panel-footer">
 						                    <div class="input-group">
-						                        <input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
+						                        <input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Escriba un mensaje ..." />
 						                        <span class="input-group-btn">
 						                        <button class="btn btn-primary btn-sm" id="btn-chat" style="background-color: rgb(232, 78, 27); border-color: rgb(196, 84, 39);"><img src="./imagenes/send.png" style="width: 18px;"/></button>
 						                        </span>

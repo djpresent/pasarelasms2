@@ -383,7 +383,7 @@ public class EnvioWhatsappServlet extends HttpServlet {
 							
 							
 
-							String mensajeCod = URLEncoder.encode(bloque, "utf-8");
+							String mensajeCod = URLEncoder.encode(bloque, "ISO-8859-1");
 							System.out.println(cadena+mensajeCod);
 							
 							URL obj = new URL("http://private.whappend.com/wa_send_bulk.asp");

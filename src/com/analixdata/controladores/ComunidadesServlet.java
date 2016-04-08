@@ -101,27 +101,47 @@ public class ComunidadesServlet extends HttpServlet{
 		
 			
 		}else{
-			resp.setContentType("text/plain");
-			resp.setCharacterEncoding("UTF-8");
-			//resp.getWriter().write("Ya existe");
+		
 			token=session.getAttribute("token").toString();
 			
 		}
 		
+		String accion=null;
+		String opcion=null;
 		
-		if(token!=""){
+		try{
+			accion=req.getParameter("accion").toString();
+			opcion=req.getParameter("opcion").toString();
+			
+		}catch(Error e){
+			
+		}
+		
+		if(token!="" && accion!=null && accion!=""){
         	
-        	
-        	String canales=obtenerCanal(token);
+			
+        	//String canales=obtenerCanal(token);
 			
 			String agente=obtenerAgente(token);
 			if(agente!=null){
 				
-			String chats=obtenerChats(agente,token);
+				  if(accion.equalsIgnoreCase("obtenerChats") && opcion!=null){
+		            						String chats=obtenerChats(agente,token,opcion);
+											resp.setContentType("text/plain");
+											resp.setCharacterEncoding("UTF-8");
+											resp.getWriter().write(chats);
+	            						}
+				  if(accion.equalsIgnoreCase("obtenerMensajes") && opcion!=null){
+											String mensajes=obtenerMensajes(token,opcion);
+	            							
+											resp.setContentType("text/plain");
+											resp.setCharacterEncoding("UTF-8");
+											resp.getWriter().write(mensajes);
+										}
+							
+	        
 				
-				resp.setContentType("text/plain");
-				resp.setCharacterEncoding("UTF-8");
-				resp.getWriter().write(chats);
+				
 			}
         	
         	
@@ -143,7 +163,8 @@ public class ComunidadesServlet extends HttpServlet{
 		
 	}
 	
-	
+
+
 	private String obtenerCanal(String t) {
 		
 		try {
@@ -254,10 +275,10 @@ private String obtenerAgente(String t) {
 		
 	}
 	
-private String obtenerChats(String id,String t) {
+private String obtenerChats(String id,String t,String opcion) {
 	
 	try {
-		URL obj = new URL("https://data.meteordesk.com/agent/"+id+"/chats?type=open");
+		URL obj = new URL("https://data.meteordesk.com/agent/"+id+"/chats?type="+opcion);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("GET");
 		con.setRequestProperty("content-type", "application/json");
@@ -296,31 +317,35 @@ private String obtenerChats(String id,String t) {
 	        	JSONObject agente=data.getJSONObject(i);
 		        String chatid=agente.getString("chatId");
 		        String chatuser=agente.getString("chatUser");
-		        String lastMessage=String.valueOf(agente.getLong("lastMessage"));
+		        
+		        java.util.Date time=new java.util.Date((long)agente.getLong("lastMessage")*1000);
+		        
+		        
+		        String lastMessage=String.valueOf(time.getDate()+"/"+(time.getMonth()+1)+" "+(time.getHours()-5)+":"+time.getMinutes() );
 		        
 		        
 		        JSONObject datos=new JSONObject(obtenerPersona(chatuser,t));
 		        JSONObject resul = datos.getJSONObject("result");
-		        
-		        //Aqui recuperar data
-		       // String nombre=resul.getString("whatsappName");
-		       // String foto=resul.getString("profilePicture");
+		        JSONObject persona = resul.getJSONObject("data");
+		       
+		       String nombre=persona.getString("whatsappName");
+		       String foto=persona.getString("profilePicture");
 		        
 		        
 		        JSONObject chat=new JSONObject(); 
 		        chat.put("chatId", chatid);
 		        chat.put("chatUser", chatuser);
-		        //chat.put("whatsappName", nombre);
+		        chat.put("whatsappName", nombre);
 		        chat.put("lastMessage", lastMessage);
-		       // chat.put("profilePicture", foto);
+		        chat.put("profilePicture", foto);
 		        
 		        chats.put(chat);
-		        return resul.toString();
+		        
 	        }
 	        
 	        mischats.put("chats", chats);
 	        
-			//return mischats.toString();
+			return mischats.toString();
 	       
 	   
 
@@ -392,6 +417,51 @@ private String obtenerChats(String id,String t) {
 		
 	
 }
+	
+	
+	
+	private String obtenerMensajes(String token, String id) {
+		try {
+			URL obj = new URL("https://data.meteordesk.com/chat/"+id+"/messages");
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("content-type", "application/json");
+	        con.setRequestProperty("accept", "application/json");
+	        con.setRequestProperty("token", token);
+
+	        con.setDoInput(true);
+	        con.setDoOutput(true);
+
+	        int responseCode = con.getResponseCode();
+	        
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+				
+				while ((inputLine = in.readLine()) != null)
+				{
+					response.append(inputLine);
+				}
+				
+				/*JSONObject jsonObject = new JSONObject(response.toString());
+		        JSONObject resultado = jsonObject.getJSONObject("result");
+		        JSONArray data=resultado.getJSONArray("data");*/
+	
+		        return response.toString() ;
+	
+		
+			
+		}catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+
 
 
 	@Override
