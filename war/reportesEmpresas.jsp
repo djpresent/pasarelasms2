@@ -52,13 +52,14 @@
 		    $( "#fechaHasta" ).datepicker({ dateFormat: 'yy-mm-dd' }).val();
 		  });
 		  
-		  function CreateExcelSheet ()
+		  function CreateExcelSheet (tabla)
 			{
-					
-					$(".table2excel").table2excel({
+			  var f = new Date();
+			
+					$(".".concat(tabla)).table2excel({
 						exclude: ".noExl",
 						name: "Excel Document Name",
-						filename: "reportes",
+						filename: tabla+"-"+f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear(),
 						exclude_img: true,
 						exclude_links: true,
 						exclude_inputs: true
@@ -474,7 +475,7 @@
 					{
 						ArrayList <List>  envios =(ArrayList <List>) session.getAttribute("envios");
 						
-					System.out.println(envios.size());
+					System.out.println("Loss envios son :"+envios.size());
 						if (envios.size()>0)
 						{
 							if (Integer.parseInt(session.getAttribute("servicio").toString())==1)
@@ -529,7 +530,7 @@
 							                            </div>
 							                            <div class="modal-body">
 
-												<table id="<%= nClase %>" class="<%= nClase %>" >
+												<table id="<%= nClase %>" class="table table-bordered table-condensed  <%= nClase %>" >
 													<tr>
 														<td style="width: 6%;">ID</td>
 														<td style="width: 8%;">Fecha</td>
@@ -596,7 +597,7 @@
 								%>
 								
 								<h4>Los resultados son:</h4>
-								<input type="button" onclick="CreateExcelSheet()" value="Exportar a Excel"></input>
+								
 								<table class="table table-bordered table-condensed  table2excel" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
 								<tr>
 									
@@ -644,7 +645,7 @@
 							                            </div>
 							                            <div class="modal-body">
 
-												<table id="<%= nClase %>" class="<%= nClase %>" >
+												<table id="<%= nClase %>" class="table table-bordered table-condensed  <%= nClase %>" >
 													<tr>
 														<td style="width: 6%;">ID</td>
 														<td style="width: 8%;">Fecha</td>

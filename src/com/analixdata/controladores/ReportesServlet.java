@@ -225,40 +225,138 @@ public class ReportesServlet extends HttpServlet
 			    	  }
 			    	  else
 			    	  {
+			    		  int anterior=0;
+				    		int c =0;
 			    		  if (Integer.parseInt(ser)==1)
 			    		  {
-				    		  ResultSet rs = conn.createStatement().executeQuery("SELECT idtransaccion,fecha,hora,retorno,plataforma,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa FROM  pasarelasms.transaccion, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=transaccion.idservicio AND usuario.idusuario= transaccion.idusuario and empresa.idempresa = transaccion.idempresa AND empresa.nombre= '"+empresa+"' AND servicio.idservicio="+ser+" AND usuario.idusuario="+usu+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtransaccion desc; ");
-	
-				    		  while(rs.next())
-					    	  {
-				    			
-					        		//tran = new Transaccion(rs.getInt("idTransaccion"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
-					        		//transacciones.add(tran);
-					    	  }
+				    		 
+			    			  ArrayList<List> envios = new ArrayList<List>();
+					    		Transaccion tran1 ;
+					    		u = (Usuario)session.getAttribute("usuario");
+
+					    		ResultSet rs = conn.createStatement().executeQuery("SELECT idtransaccion,fecha,hora,retorno,plataforma,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa,idEnvio FROM  pasarelasms.transaccion, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=transaccion.idservicio AND usuario.idusuario= transaccion.idusuario and empresa.idempresa = transaccion.idempresa AND empresa.nombre= '"+empresa+"' AND servicio.idservicio="+ser+" AND usuario.idusuario="+usu+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtransaccion desc; ");
+					    		
+					    			List <Transaccion> transacciones1 =null;
+					    			while(rs.next())
+							    	{
+					    				if (anterior==0)
+					    				{
+					    					 transacciones1 = new ArrayList<Transaccion> ();
+					    					 int id = rs.getInt("idTransaccion");
+						    					System.out.println(id);
+						    					tran1 = new Transaccion(id, rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"),rs.getInt("idEnvio"));
+					    					transacciones1.add(tran1);
+					    					anterior=rs.getInt("idEnvio");
+					    					c++;
+					    					
+					    				}
+					    				else if (rs.getInt("idEnvio")==anterior)
+					    				{
+					    					int id = rs.getInt("idTransaccion");
+					    					System.out.println(id);
+					    					tran1 = new Transaccion(id, rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"),rs.getInt("idEnvio"));
+					    					transacciones1.add(tran1);
+					    					anterior=rs.getInt("idEnvio");
+					    					c++;
+					    				}
+					    				else
+					    				{
+					    					//System.out.println("Existen "+c+" mensajes para el grupo "+anterior);
+					    					envios.add(transacciones1);
+					    					transacciones1 = new ArrayList<Transaccion> ();
+					    					int id = rs.getInt("idTransaccion");
+					    					System.out.println(id);
+					    					tran1 = new Transaccion(id, rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("plataforma"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"),rs.getInt("idEnvio"));
+					    					transacciones1.add(tran1);
+					    					anterior=rs.getInt("idEnvio");
+					    					c=1;
+					    					
+					    				}
+							        	
+							    	 }
+					    			
+					    			 if (c>0)
+						    		  {
+						    		  envios.add(transacciones1);
+						    		  }
+					    		session.setAttribute("usu", usu);
+					    		session.setAttribute("servicio", ser);
+							    session.setAttribute("fDesde", fechaDesde);
+							    session.setAttribute("fHasta", fechaHasta);
+							    session.setAttribute("envios", envios);
+							    //System.out.println(envios.size());
+							    resp.sendRedirect("reportes.jsp");
+
+			    			  
 			    		  }
 			    		  else if (Integer.parseInt(ser)==3) //Si son servicios de Whatsapp
 			    		  {
-			    			  ResultSet rs = conn.createStatement().executeQuery("SELECT idtwhatsapp,idinterno,fecha,hora,retorno,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa FROM  pasarelasms.twhatsapp, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=twhatsapp.idservicio AND usuario.idusuario= twhatsapp.idusuario and empresa.idempresa = twhatsapp.idempresa AND empresa.nombre= '"+empresa+"' AND servicio.idservicio="+ser+" AND usuario.idusuario="+usu+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtwhatsapp desc; ");
-			    				
-				    		  while(rs.next())
-					    	  {
-				    			
-					        	//	tran = new Transaccion(rs.getInt("idtwhatsapp"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("idinterno"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
-					        	//	transacciones.add(tran);
-					    	  }
+			    			  
+			    			  
+			    			  ArrayList<List> envios = new ArrayList<List>();
+					    		Transaccion tran1 ;
+					    		List <Transaccion> transacciones1 = new ArrayList<Transaccion> ();
+						    	  
+					    		
+					    		 u = (Usuario)session.getAttribute("usuario");
+					    		 
+					    		 //String empresa = u.getEmpresa().getNombre();
+					    		
+					    		
+					    		 ResultSet rs = conn.createStatement().executeQuery("SELECT idtwhatsapp,idinterno,fecha,hora,retorno,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa , idEnvio FROM  pasarelasms.twhatsapp, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=twhatsapp.idservicio AND usuario.idusuario= twhatsapp.idusuario and empresa.idempresa = twhatsapp.idempresa AND empresa.nombre= '"+empresa+"' AND servicio.idservicio="+ser+" AND usuario.idusuario="+usu+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtwhatsapp desc; ");
+				    					
+					    		  while(rs.next())
+						    	  {
+					    			  if (anterior==0)
+					    			  {
+					    				  transacciones1 = new ArrayList<Transaccion> ();
+					    				  tran1 = new Transaccion(rs.getInt("idtwhatsapp"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("idinterno"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"),rs.getInt("idEnvio"));
+					    				  transacciones1.add(tran1);
+					    				  anterior=rs.getInt("idEnvio");
+					    					c++;
+					    			  }
+					    			  else if (rs.getInt("idEnvio")==anterior)
+					    			  {
+					    				  tran1 = new Transaccion(rs.getInt("idtwhatsapp"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("idinterno"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"),rs.getInt("idEnvio"));
+					    				  transacciones1.add(tran1);
+					    				  anterior=rs.getInt("idEnvio");
+					    					c++;
+					    			  }
+					    			  else
+					    			  {
+					    				  envios.add(transacciones1);
+					    					transacciones1 = new ArrayList<Transaccion> ();
+					    				  tran1 = new Transaccion(rs.getInt("idtwhatsapp"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("idinterno"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"),rs.getInt("idEnvio"));
+					    				  transacciones1.add(tran1);
+					    				  anterior=rs.getInt("idEnvio");
+					    					c++;
+					    			  }
+					    			  
+					    			
+						        	
+						    	  }	
+					    		  
+					    		  if (c>0)
+					    		  {
+					    		  envios.add(transacciones1);
+					    		  }
+					    		 
+					    		  session.setAttribute("usu", usu);
+					    		  session.setAttribute("servicio", ser);
+							    session.setAttribute("fDesde", fechaDesde);
+							    session.setAttribute("fHasta", fechaHasta);
+							    session.setAttribute("envios", envios);
+							    resp.sendRedirect("reportes.jsp");
+					    	
+			    			  
+			    			  
+			    			  
+			    			  
+				    		  
 			    		  }
 			    	  }
 			    	  
-			    	  	
-			    	  	session.setAttribute("empresa", empresa);
-			    	  	session.setAttribute("usu", usu);
-			    	  	session.setAttribute("ser", ser);
-				        session.setAttribute("fDesde", fechaDesde);
-				        session.setAttribute("fHasta", fechaHasta);
-				        //session.setAttribute("listaUsuarios", listaUsuarios);
-				        //session.setAttribute("listaServicios", listaServicios);
-				        session.setAttribute("transacciones", transacciones);
-				        resp.sendRedirect("reportes.jsp");
+
 		    	  }
 			 
 			        

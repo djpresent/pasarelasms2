@@ -421,7 +421,7 @@
 							                            </div>
 							                            <div class="modal-body">
 
-												<table id="<%= nClase %>" class="<%= nClase %>" >
+												<table id="<%= nClase %>" class="table table-bordered table-condensed  <%= nClase %>" >
 													<tr>
 														<td style="width: 6%;">ID</td>
 														<td style="width: 8%;">Fecha</td>
@@ -488,7 +488,7 @@
 								%>
 								
 								<h4>Los resultados son:</h4>
-								<input type="button" onclick="CreateExcelSheet()" value="Exportar a Excel"></input>
+								
 								<table class="table table-bordered table-condensed  table2excel" id="table2excel" style="table-layout: fixed; font-size: 85%; word-wrap: break-word;">
 								<tr>
 									
@@ -536,7 +536,7 @@
 							                            </div>
 							                            <div class="modal-body">
 
-												<table id="<%= nClase %>" class="<%= nClase %>" >
+												<table id="<%= nClase %>" class="table table-bordered table-condensed  <%= nClase %>" >
 													<tr>
 														<td style="width: 6%;">ID</td>
 														<td style="width: 8%;">Fecha</td>

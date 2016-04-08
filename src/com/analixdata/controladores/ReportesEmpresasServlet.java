@@ -115,16 +115,11 @@ public class ReportesEmpresasServlet extends HttpServlet
 		    		int c =0;
 			    	if (Integer.parseInt(ser)==1)
 			    	{
-			    		//System.out.println("Entró a SMS ");
+			    		
 			    		ArrayList<List> envios = new ArrayList<List>();
 			    		Transaccion tran ;
-			    		
-				    	  
-			    		
-			    		 u = (Usuario)session.getAttribute("usuario");
-			    		
-	  
-			    			
+			    		u = (Usuario)session.getAttribute("usuario");
+
 			    			ResultSet rs = conn.createStatement().executeQuery("SELECT idtransaccion,fecha,hora,retorno,plataforma,celular,mensaje,servicio.descripcion as servicio,concat(usuario.nombres,\" \",usuario.apellidos) as usuario, empresa.nombre as empresa,idEnvio FROM  pasarelasms.transaccion, pasarelasms.servicio,pasarelasms.usuario,pasarelasms.empresa WHERE servicio.idservicio=transaccion.idservicio AND usuario.idusuario= transaccion.idusuario and empresa.idempresa = transaccion.idempresa and empresa.idempresa="+u.getEmpresa().getIdEmpresa()+"  AND usuario.idusuario="+usu+" AND fecha between '"+fechaDesde+"' AND '"+fechaHasta+"' order by idtransaccion desc; ");
 				    		
 			    			List <Transaccion> transacciones =null;
@@ -160,8 +155,12 @@ public class ReportesEmpresasServlet extends HttpServlet
 					        	
 					    	 }
 			    			
-			    		envios.add(transacciones);
+			    			 if (c>0)
+				    		  {
+				    		  envios.add(transacciones);
+				    		  }
 			    		session.setAttribute("usu", usu);
+			    		session.setAttribute("servicio", ser);
 					    session.setAttribute("fDesde", fechaDesde);
 					    session.setAttribute("fHasta", fechaHasta);
 					    session.setAttribute("envios", envios);
@@ -215,9 +214,13 @@ public class ReportesEmpresasServlet extends HttpServlet
 				        	
 				    	  }	
 			    		  
+			    		  if (c>0)
+			    		  {
 			    		  envios.add(transacciones);
+			    		  }
 			    		 
 			    		  session.setAttribute("usu", usu);
+			    		  session.setAttribute("servicio", ser);
 					    session.setAttribute("fDesde", fechaDesde);
 					    session.setAttribute("fHasta", fechaHasta);
 					    session.setAttribute("envios", envios);

@@ -133,7 +133,10 @@ public class ReportesUsuariosServlet extends HttpServlet
 						        	
 						    	 }
 				    			
-				    		envios.add(transacciones);
+				    		if (c>0)
+				    		{
+				    			envios.add(transacciones);
+				    		}
 				    		session.setAttribute("servicio", ser);
 						    session.setAttribute("fDesde", fechaDesde);
 						    session.setAttribute("fHasta", fechaHasta);
@@ -189,9 +192,10 @@ public class ReportesUsuariosServlet extends HttpServlet
 					        	//	tran = new Transaccion(rs.getInt("idtwhatsapp"), rs.getString("fecha"), rs.getString("hora"), rs.getString("retorno"),rs.getString("idinterno"), rs.getString("celular"), rs.getString("mensaje"),rs.getString("servicio"), rs.getString("usuario"), rs.getString("empresa"));
 					        		//transacciones.add(tran);
 					    	  }	
-				    		  
+				    		  if (c>0)
+				    		  {
 				    		  envios.add(transacciones);
-				    		 
+				    		  }
 				    		  session.setAttribute("servicio", ser);
 						    session.setAttribute("fDesde", fechaDesde);
 						    session.setAttribute("fHasta", fechaHasta);
