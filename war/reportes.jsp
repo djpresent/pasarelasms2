@@ -10,7 +10,7 @@
 
 <html>
 <head>
-
+		<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -73,6 +73,7 @@
 					exclude: ".noExl",
 					name: "Excel Document Name",
 					filename: tabla+"-"+f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear(),
+					fileext: ".xls",
 					exclude_img: true,
 					exclude_links: true,
 					exclude_inputs: true
