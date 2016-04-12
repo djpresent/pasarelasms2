@@ -63,6 +63,8 @@
 			    });
 			});
 		
+		 
+		 
 
 		
 		function CreateExcelSheet (tabla)
@@ -104,7 +106,19 @@
 				}
 				 else
 				{
-				  return true;
+					 
+					 /*var usuario = document.getElementById('rUsuario').value;
+					  
+					 if (usuario=="nousuario")
+					{
+						  alert('Debe seleccionar un usuario');
+						  return false;
+					}
+					 else
+					{*/
+						 
+					  return true;
+					//}
 				}
 			}
 		  }
