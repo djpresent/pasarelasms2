@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -138,9 +139,33 @@ public class ComunidadesServlet extends HttpServlet{
 											resp.setCharacterEncoding("UTF-8");
 											resp.getWriter().write(mensajes);
 										}
-							
+				  
+				  if(accion.equalsIgnoreCase("enviarMensaje") && opcion!=null){
+					  	
+						String mensajes=enviarMensaje(token,req.getParameter("chatid").toString(),opcion);
+						
+						resp.setContentType("text/plain");
+						resp.setCharacterEncoding("UTF-8");
+						resp.getWriter().write(mensajes);
+					}	
+				  
+				  if(accion.equalsIgnoreCase("enviarFoto") && opcion!=null){
+					  	
+						String mensajes=enviarFoto(token,req.getParameter("chatid").toString(),opcion);
+						
+						resp.setContentType("text/plain");
+						resp.setCharacterEncoding("UTF-8");
+						resp.getWriter().write(mensajes);
+					}
 	        
-				
+				  if(accion.equalsIgnoreCase("enviarUbicacion") && opcion!=null){
+					  	
+						String mensajes=enviarUbicacion(token,req.getParameter("chatid").toString(),req.getParameter("latitud").toString(),req.getParameter("longitud").toString(),opcion);
+						
+						resp.setContentType("text/plain");
+						resp.setCharacterEncoding("UTF-8");
+						resp.getWriter().write(mensajes);
+					}
 				
 			}
         	
@@ -462,7 +487,149 @@ private String obtenerChats(String id,String t,String opcion) {
 		
 	}
 
+	private String enviarMensaje(String token, String chatid,String mensaje) {
+		
+		String cadenaJSON="{\"message\":{\"type\":\"text\", \"data\":\""+mensaje+"\"}}";
+		
+		
+		try {
+			URL obj = new URL("https://data.meteordesk.com/chat/"+chatid+"/message");
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			con.setRequestMethod("POST");
+			con.setRequestProperty("content-type", "application/json");
+	        con.setRequestProperty("accept", "application/json");
+	        con.setRequestProperty("token", token);
 
+	        con.setDoInput(true);
+	        con.setDoOutput(true);
+        
+	        OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
+	        writer.write(cadenaJSON);
+	        writer.close();
+	        
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+				
+				while ((inputLine = in.readLine()) != null)
+				{
+					response.append(inputLine);
+				}
+				
+				/*JSONObject jsonObject = new JSONObject(response.toString());
+		        JSONObject resultado = jsonObject.getJSONObject("result");
+		        JSONArray data=resultado.getJSONArray("data");*/
+	
+		        return response.toString() ;
+	
+		
+			
+		}catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	
+private String enviarFoto(String token, String chatid,String mensaje) {
+	
+		
+	String cadenaJSON="{\"message\":{\"type\":\"image\", \"data\":\""+mensaje+"\"}}";
+	
+		try {
+			URL obj = new URL("https://data.meteordesk.com/chat/"+chatid+"/message");
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			con.setRequestMethod("POST");
+			con.setRequestProperty("content-type", "application/json");
+	        con.setRequestProperty("accept", "application/json");
+	        con.setRequestProperty("token", token);
+
+	        con.setDoInput(true);
+	        con.setDoOutput(true);
+        
+	        OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
+	        writer.write(cadenaJSON);
+	        writer.close();
+	        
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+				
+				while ((inputLine = in.readLine()) != null)
+				{
+					response.append(inputLine);
+				}
+				
+				/*JSONObject jsonObject = new JSONObject(response.toString());
+		        JSONObject resultado = jsonObject.getJSONObject("result");
+		        JSONArray data=resultado.getJSONArray("data");*/
+	
+		        return response.toString() ;
+	
+		
+			
+		}catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+
+
+private String enviarUbicacion(String token, String chatid,String latitud, String longitud,String mensaje) {
+	
+	
+String cadenaJSON="{\"message\":{\"type\":\"location\", \"data\":{\"latitude\":\""+latitud+"\",\"longitude\":\""+longitud+"\",\"name\":\""+mensaje+"\"}}}";
+
+	try {
+		URL obj = new URL("https://data.meteordesk.com/chat/"+chatid+"/message");
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setRequestMethod("POST");
+		con.setRequestProperty("content-type", "application/json");
+        con.setRequestProperty("accept", "application/json");
+        con.setRequestProperty("token", token);
+
+        con.setDoInput(true);
+        con.setDoOutput(true);
+    
+        OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
+        writer.write(cadenaJSON);
+        writer.close();
+        
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			
+			while ((inputLine = in.readLine()) != null)
+			{
+				response.append(inputLine);
+			}
+			
+
+	        return response.toString() ;
+
+	
+		
+	}catch (MalformedURLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return null;
+	
+}
+	
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

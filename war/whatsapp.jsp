@@ -481,7 +481,7 @@ session.setAttribute("disponibles",disponible );
 												<%
 												break;
 							case 3:
-												cod= "ALGUNOS MENSAJES NO FUERON ENVIADOS. POR FAVOR, COMUNIQUESE CON ANALIXDATA";
+												cod= "ALGUNOS MENSAJES NO FUERON ENVIADOS. POR FAVOR, REVISE LOS REPORTES.";
 												%>
 													<div class="alert alert-danger">
 													  <strong>Error!</strong> <%= cod %>

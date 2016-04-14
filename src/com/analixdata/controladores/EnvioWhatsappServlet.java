@@ -282,10 +282,12 @@ public class EnvioWhatsappServlet extends HttpServlet {
 			System.out.println("paso while");
 			
 			
+			
+			
 			try{
 			if (Integer.parseInt(disp)>=mensajes.size())
 			{	
-				
+				int bandera=0;
 				Pattern pat = Pattern.compile("^5939.*");
 				
 				Connection conn = DriverManager.getConnection(url);
@@ -341,6 +343,7 @@ public class EnvioWhatsappServlet extends HttpServlet {
 					     } else {
 					         //System.out.println("NO");
 					         respuesta="NUMERO INCORRECTO";
+					         bandera++;
 					     }
 	
 						try
@@ -454,7 +457,13 @@ public class EnvioWhatsappServlet extends HttpServlet {
 							
 					}
 				}
-				session.setAttribute("codigo", 4);
+				
+				if(bandera>0){
+					session.setAttribute("codigo", 3);
+				}else{
+					session.setAttribute("codigo", 4);
+				}
+				
 				resp.sendRedirect("whatsapp.jsp");
 
 			}
