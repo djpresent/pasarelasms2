@@ -24,6 +24,7 @@ import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -300,6 +301,17 @@ public class EnvioWhatsappServlet extends HttpServlet {
 				
 				String respuesta="";
 				int contador=0;
+				
+				
+				ResultSet rs = conn.createStatement().executeQuery("SELECT idEnvio FROM pasarelasms.twhatsapp ORDER BY idEnvio DESC LIMIT 1;");
+				int idEnvioAnterior=0;
+				if (rs.first())
+				{
+					idEnvioAnterior=rs.getInt("idEnvio");
+				}
+				
+				
+				
 				for (int i = 0; i<mensajes.size();i++)
 				{
 					contador++;
@@ -346,7 +358,7 @@ public class EnvioWhatsappServlet extends HttpServlet {
 		    		        System.out.println("Ingreso antes de la base");
 		    		        
 		    		        
-		        			String statement = "INSERT INTO twhatsapp (fecha,hora,retorno,idinterno,celular,mensaje,idservicio,idusuario,idempresa) VALUES( ? , ? , ? , ? , ? , ? , ? , ? , ? )";
+		        			String statement = "INSERT INTO twhatsapp (fecha,hora,retorno,idinterno,celular,mensaje,idservicio,idusuario,idempresa,idEnvio) VALUES( ? , ? , ? , ? , ? , ? , ? , ? , ?, ? )";
 		    		          PreparedStatement stmt = conn.prepareStatement(statement);
 		    		          stmt.setString(1, fecha);
 		    		          stmt.setString(2,  hora);
@@ -366,6 +378,7 @@ public class EnvioWhatsappServlet extends HttpServlet {
 		    		          stmt.setInt(7, 3);
 		    		          stmt.setInt(8, u.getId() );
 		    		          stmt.setInt(9, u.getEmpresa().getIdEmpresa());
+		    		          stmt.setInt(10, idEnvioAnterior+1);
 		    		          
 		    		          stmt.executeUpdate();
 		    		          System.out.println(statement);
